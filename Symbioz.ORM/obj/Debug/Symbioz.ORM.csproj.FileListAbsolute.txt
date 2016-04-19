@@ -28,3 +28,10 @@ C:\Users\Matspyder\Desktop\Symbioz-master\Symbioz\Symbioz.ORM\bin\Debug\Shader.H
 C:\Users\Matspyder\Desktop\Symbioz-master\Symbioz\Symbioz.ORM\obj\Debug\Symbioz.ORM.csprojResolveAssemblyReference.cache
 C:\Users\Matspyder\Desktop\Symbioz-master\Symbioz\Symbioz.ORM\obj\Debug\Shader.ORM.dll
 C:\Users\Matspyder\Desktop\Symbioz-master\Symbioz\Symbioz.ORM\obj\Debug\Shader.ORM.pdb
+C:\Users\Skinz\Desktop\SymbiozRepo\Symbioz.ORM\bin\Debug\Shader.ORM.dll
+C:\Users\Skinz\Desktop\SymbiozRepo\Symbioz.ORM\bin\Debug\Shader.ORM.pdb
+C:\Users\Skinz\Desktop\SymbiozRepo\Symbioz.ORM\bin\Debug\Shader.Helper.dll
+C:\Users\Skinz\Desktop\SymbiozRepo\Symbioz.ORM\bin\Debug\Shader.Helper.pdb
+C:\Users\Skinz\Desktop\SymbiozRepo\Symbioz.ORM\obj\Debug\Symbioz.ORM.csprojResolveAssemblyReference.cache
+C:\Users\Skinz\Desktop\SymbiozRepo\Symbioz.ORM\obj\Debug\Shader.ORM.dll
+C:\Users\Skinz\Desktop\SymbiozRepo\Symbioz.ORM\obj\Debug\Shader.ORM.pdb

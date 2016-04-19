@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Symbioz.World.Records
 {
-    [Table("dungeons_id", true)]
+    [Table("DungeonsIds", true)]
     public class DungeonsIdRecord : ITable
     {
         public static List<DungeonsIdRecord> DungeonsId = new List<DungeonsIdRecord>();

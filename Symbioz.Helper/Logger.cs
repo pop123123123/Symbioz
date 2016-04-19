@@ -22,7 +22,10 @@ namespace Symbioz
         {
             Console.Title = "Symbioz";
             Logo();
-            Logger.Init2("Version " + ConstantsRepertory.VERSION + " by  Skinz");
+            Logger.Init2("Version " + ConstantsRepertory.VERSION);
+            Logger.NewLine();
+            Logger.Init2("Written by Skinz");
+            Logger.Init2("Contributor(s): Matspyder");
             Logger.NewLine();
         }
         public static void NewLine()
