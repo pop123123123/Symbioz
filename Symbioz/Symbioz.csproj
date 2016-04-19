@@ -160,7 +160,7 @@
     <Compile Include="Providers\SpellEffectsProvider\SpellBoost.cs" />
     <Compile Include="Providers\SpellEffectsProvider\TargetsMasksProvider\TargetMaskValidator.cs" />
     <Compile Include="Providers\SpellEffectsProvider\TargetsMasksProvider\TMValidatorAttribute.cs" />
-    <Compile Include="World\CyclicConnectionStateTest.cs" />
+    <Compile Include="Network\CyclicConnectionStateTest.cs" />
     <Compile Include="World\Handlers\ArenaHandler.cs" />
     <Compile Include="World\Handlers\GuildHandler.cs" />
     <Compile Include="World\Handlers\PartyHandler.cs" />

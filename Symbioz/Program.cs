@@ -38,7 +38,6 @@ namespace Symbioz
         static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             SaveTask.Save();
-            ErrorLogsManager.AddLog(e.ToString(), "Local Server");
             Thread.Sleep(1000);
             Environment.Exit(1);
 
