@@ -1,3 +1,0 @@
-Client: Local Server
-At: 25/03/2016 19:07:13
-System.UnhandledExceptionEventArgs
