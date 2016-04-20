@@ -38,6 +38,7 @@ namespace Symbioz.World.Records
         public Point Position { get { return MapPositionRecord.GetMapPosition(Id); } }
 
         public string Name { get { return MapPositionRecord.GetMapName(Id); } }
+
         public MapRecord(int id, int subareaid, int topmap, int downmap, int leftmap, int rightmap, List<short> walkable, List<short> bluecells, List<short> redcells)
         {
             this.Id = id;

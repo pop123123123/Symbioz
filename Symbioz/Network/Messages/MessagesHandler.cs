@@ -18,35 +18,32 @@ namespace Symbioz.Network.Messages
     public class MessagesHandler
     {
         static Type[] HandlerMethodParameterTypes = new Type[] { typeof(Message), typeof(DofusClient) };
+
         static Dictionary<uint, Delegate> Handlers = new Dictionary<uint, Delegate>();
-        public static void Handle(Message message, DofusClient client) 
+
+        public static void Handle(Message message, DofusClient client)
         {
 
             if (message.IsNull() && !client.IsNull())
             {
-                Logger.Init2("[Rcv] Client " + client.SSyncClient.Ip + " send unknown datas, they wont be handlded");
+                Logger.Init2("[Rcv] Client " + client.SSyncClient.Ip + " send unknown datas, they wont be handled");
                 return;
             }
             var handler = Handlers.FirstOrDefault(x => x.Key == message.MessageId);
             if (!handler.Value.IsNull())
             {
-                if (ConfigurationManager.Instance.ShowProtocolMessages)
-                Logger.Info("[Rcv] Message: " + message.ToString());
                 {
+                    if (ConfigurationManager.Instance.ShowProtocolMessages)
+                        Logger.Write("[Rcv] Message: " + message.ToString(), ConsoleColor.Gray);
                     try
                     {
+
                         handler.Value.DynamicInvoke(null, message, client);
-                       
                     }
                     catch (Exception ex)
                     {
-                        Logger.Error(string.Format("Unable to handle message {0} {1} : '{2}'",message.ToString(), handler.Value.Method.Name, ex.InnerException.ToString()));
+                        Logger.Error(string.Format("Unable to handle message {0} {1} : '{2}'", message.ToString(), handler.Value.Method.Name, ex.InnerException.ToString()));
                         ErrorLogsManager.AddLog(ex.InnerException.ToString(), client.SSyncClient.Ip);
-                        
-                        if (client is WorldClient)
-                        {
-                            (client as WorldClient).Character.ReplyError(ex.ToString());
-                        }
                         client.SendRaw("forcedbugreport");
                     }
                 }
@@ -54,7 +51,7 @@ namespace Symbioz.Network.Messages
             else
             {
                 if (ConfigurationManager.Instance.ShowProtocolMessages)
-                Logger.Write(string.Format("[Rcv] No Handler: ({0}) {1}", message.MessageId, message.ToString()), ConsoleColor.Gray);
+                    Logger.Log(string.Format("[Rcv] No Handler: ({0}) {1}", message.MessageId, message.ToString()));
             }
         }
         [StartupInvoke("Messages Handler", StartupInvokeType.Internal)]

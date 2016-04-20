@@ -37,11 +37,12 @@ namespace Symbioz.World.Models.Parties
             int maxhp = stats.LifePoints;
             int regen = (int)1;
             int align = (int)(sbyte)record.AlignmentSide;
-            Point position = new Point(0,0);
             int mapid = (int)(short)record.MapId;
             PlayerStatus status = new PlayerStatus((sbyte)0);
             PartyCompanionMemberInformations[] memberInformationsArray = new PartyCompanionMemberInformations[0];
-            return new PartyMemberInformations((uint)id, (byte)level, name, entityLook, (sbyte)breed, sex, (uint)hp, (uint)maxhp, (ushort)stats.Prospecting, (byte)regen, (ushort)this.C.Initiative, (sbyte)align, (short)0, (short)0, this.C.Map.Id, (ushort)this.C.SubAreaId, status, (IEnumerable<PartyCompanionMemberInformations>)memberInformationsArray);
+            return new PartyMemberInformations((uint)id, (byte)level, name, entityLook, 
+                (sbyte)breed, sex, (uint)hp, (uint)maxhp, (ushort)stats.Prospecting,
+                (byte)regen, (ushort)this.C.Initiative, (sbyte)align, (short)this.C.Map.Position.x, (short)this.C.Map.Position.y, this.C.Map.Id, (ushort)this.C.SubAreaId, status, (IEnumerable<PartyCompanionMemberInformations>)memberInformationsArray);
         }
         public PartyInvitationMemberInformations GetPartyInvitationMemberInformations()
         {
@@ -54,10 +55,12 @@ namespace Symbioz.World.Models.Parties
             EntityLook entityLook = this.C.Look.ToEntityLook();
             int breed = (int)(sbyte)record.Breed;
             bool sex = record.Sex;
-            Point position = new Point(0, 0);
             int mapid = (int)(short)record.MapId;
             PartyCompanionMemberInformations[] memberInformationsArray = new PartyCompanionMemberInformations[0];
-            return new PartyInvitationMemberInformations((uint)id, (byte)level, name, entityLook, (sbyte)breed, sex, (short)0, (short)0, this.C.Map.Id, (ushort)this.C.SubAreaId, (IEnumerable<PartyCompanionMemberInformations>)memberInformationsArray);
+
+            return new PartyInvitationMemberInformations((uint)id, (byte)level, 
+                name, entityLook, (sbyte)breed, sex,(short)this.C.Map.Position.x, (short)this.C.Map.Position.y, this.C.Map.Id,
+                (ushort)this.C.SubAreaId, memberInformationsArray);
         }
 
         public void SetLoyalty(bool value)

@@ -98,6 +98,8 @@ namespace Symbioz.World.Models.Parties
 
         public void RefuseInvitation(WorldClient client)
         {
+            if (client.Character.PartyMember != null && client.Character.PartyMember.Party == this)
+                return;
             this.RemoveGuest(client);
 
             foreach (WorldClient c in this.Members)
@@ -125,12 +127,19 @@ namespace Symbioz.World.Models.Parties
 
         public void SendInvitationDetail(WorldClient to)
         {
+      
             PartyGuest g = this.PGuests.Find(x => x.Character.Id == to.Character.Id);
-            to.Send(new PartyInvitationDetailsMessage((uint)this.Id, (sbyte)PartyTypeEnum.PARTY_TYPE_CLASSICAL, this.Name, (uint)g.InvitedBy.Id, g.InvitedBy.Record.Name, (uint)this.BossCharacterId,
-                from members in this.PMembers
-                select members.GetPartyInvitationMemberInformations(),
-                from guests in this.PGuests
-                select guests.GetPartyGuestInformations()));
+
+            var members = this.PMembers.ConvertAll<PartyInvitationMemberInformations>(x=>x.GetPartyInvitationMemberInformations());
+            var guests = this.PGuests.ConvertAll<PartyGuestInformations>(x=>x.GetPartyGuestInformations());
+
+            to.Send(new PartyInvitationDetailsMessage((uint)this.Id,
+                (sbyte)PartyTypeEnum.PARTY_TYPE_CLASSICAL, this.Name,
+                    (uint)g.InvitedBy.Id, g.InvitedBy.Record.Name, (uint)this.BossCharacterId,members,
+              guests));
+
+
+
         }
 
         public void QuitParty(WorldClient client)
