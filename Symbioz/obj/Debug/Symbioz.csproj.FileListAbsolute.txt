@@ -137,12 +137,6 @@ C:\Users\Skinz\Desktop\SymbiozRepos\Symbioz\bin\Debug\Symbioz.exe.config
 C:\Users\Skinz\Desktop\SymbiozRepos\Symbioz\obj\Debug\Symbioz.exe
 C:\Users\Skinz\Desktop\SymbiozRepos\Symbioz\obj\Debug\Symbioz.pdb
 C:\Users\Skinz\Desktop\SymbiozRepo\Symbioz\obj\Debug\Symbioz.csprojResolveAssemblyReference.cache
-C:\Users\Skinz\Desktop\SymbiozRepo\Symbioz\bin\Debug\SpellCategories\Agress.xml
-C:\Users\Skinz\Desktop\SymbiozRepo\Symbioz\bin\Debug\SpellCategories\Buff.xml
-C:\Users\Skinz\Desktop\SymbiozRepo\Symbioz\bin\Debug\SpellCategories\Damages.xml
-C:\Users\Skinz\Desktop\SymbiozRepo\Symbioz\bin\Debug\SpellCategories\Heal.xml
-C:\Users\Skinz\Desktop\SymbiozRepo\Symbioz\bin\Debug\SpellCategories\Summon.xml
-C:\Users\Skinz\Desktop\SymbiozRepo\Symbioz\bin\Debug\SpellCategories\Teleport.xml
 C:\Users\Skinz\Desktop\SymbiozRepo\Symbioz\bin\Debug\Symbioz.exe
 C:\Users\Skinz\Desktop\SymbiozRepo\Symbioz\bin\Debug\Symbioz.pdb
 C:\Users\Skinz\Desktop\SymbiozRepo\Symbioz\bin\Debug\Shader.Helper.dll

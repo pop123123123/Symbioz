@@ -20,6 +20,7 @@ using System.Threading;
 
 namespace Symbioz.SSync
 {
+    /// From WCell
 	public class SynchronizedDictionary<TKey, TValue> : Dictionary<TKey, TValue>
 	{
 		private readonly object _syncLock = new object();

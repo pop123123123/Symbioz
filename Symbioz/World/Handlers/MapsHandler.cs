@@ -26,7 +26,6 @@ namespace Symbioz.World.Handlers
         public static void HandleMapInformations(MapInformationsRequestMessage message, WorldClient client)
         {
             client.Character.Map = MapRecord.GetMap(message.mapId);
-
             if (client.Character.Map == null)
             {
                 client.Character.TeleportToSpawnPoint();

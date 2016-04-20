@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Symbioz.SSync
 {
+    /// From WCell
     public static class SocketHelpers
     {
         //static int s_AcquiredArgs;

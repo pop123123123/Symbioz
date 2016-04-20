@@ -4,6 +4,7 @@ using System.Threading;
 
 namespace Symbioz.SSync
 {
+    /// From WCell
     public class LockFreeQueue<T> : IEnumerable<T>
     {
         private SingleLinkNode<T> _head;

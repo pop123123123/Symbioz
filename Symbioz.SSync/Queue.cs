@@ -21,6 +21,7 @@ using System.Threading;
 
 namespace Symbioz.SSync
 {
+    /// From WCell
     /// <summary>
     /// Represents a lock-free, thread-safe, first-in, first-out collection of objects.
     /// </summary>

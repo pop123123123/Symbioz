@@ -23,7 +23,7 @@ namespace Symbioz.World.Records.Maps
         public MapPositionRecord(int mapId,int x,int y,bool outdoor,int capabilities,string name)
         {
             this.MapId = mapId;
-            this.X = y;
+            this.X = x;
             this.Y = y;
             this.Outdoor = outdoor;
             this.Capabilities = capabilities;

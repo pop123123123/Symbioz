@@ -7,6 +7,7 @@ using System.Threading;
 
 namespace Symbioz.SSync
 {
+    /// From WCell
     /// <summary>
     /// A structure that contains information about an object pool.
     /// </summary>

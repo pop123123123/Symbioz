@@ -1,5 +1,6 @@
 ﻿namespace Symbioz.SSync
 {
+    /// From WCell
     /// <summary>
     /// Interface for an object pool.
     /// </summary>

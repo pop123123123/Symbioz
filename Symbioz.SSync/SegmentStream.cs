@@ -4,6 +4,7 @@ using System.IO;
 
 namespace Symbioz.SSync
 {
+    /// From WCell
     /// <summary>
     /// Similar to MemoryStream, but with an underlying BufferSegment.
     /// Will automatically free the old and get a new segment if its length was exceeded.
