@@ -66,7 +66,6 @@ namespace Symbioz.World.Models.Fights
         void DenyFight(WorldClient client)
         {
             TemporaryArenaClient arenaClient = GetClient(client);
-            Clients.ForEach(x => x.Ready = false);
             ArenaProvider.Instance.Unregister(client);
             arenaClient.UpdateFighterStatus(Clients);
         }
@@ -75,9 +74,6 @@ namespace Symbioz.World.Models.Fights
             
             TemporaryArenaClient arenaClient = GetClient(client);
             arenaClient.Ready = true;
-            if (RedTeam.All(x => x.Ready) && BlueTeam.All(x => x.Ready))
-                StartFighting();
-
             arenaClient.UpdateRegistrationStatus(false, PvpArenaStepEnum.ARENA_STEP_WAITING_FIGHT);
             arenaClient.UpdateFighterStatus(Clients);
 
@@ -88,6 +84,9 @@ namespace Symbioz.World.Models.Fights
                     aClient.UpdateFighterStatus(new List<TemporaryArenaClient>() { aClient });
                 }
             }
+            if (RedTeam.All(x => x.Ready) && BlueTeam.All(x => x.Ready))
+                StartFighting();
+         
 
 
 
@@ -107,10 +106,10 @@ namespace Symbioz.World.Models.Fights
         }
         public void StartFighting()
         {
-            ArenaProvider.Instance.m_arena_groups.Remove(this);
+           
 
             Clients.ForEach(x => x.UpdateRegistrationStatus(false, PvpArenaStepEnum.ARENA_STEP_STARTING_FIGHT));
-            Clients.Clear();
+           
             int arenaMapId = ArenaProvider.Instance.RandomArenaMap();
 
             BlueTeam.ForEach(x => MapsHandler.SendCurrentMapMessage(x.WorldClient, arenaMapId));
@@ -120,7 +119,8 @@ namespace Symbioz.World.Models.Fights
             BlueTeam.ForEach(x => fight.BlueTeam.AddFighter(x.WorldClient.Character.CreateFighter(fight.BlueTeam)));
             RedTeam.ForEach(x => fight.RedTeam.AddFighter(x.WorldClient.Character.CreateFighter(fight.RedTeam)));
             fight.StartPlacement();
-
+            Clients.Clear();
+            ArenaProvider.Instance.m_arena_groups.Remove(this);
         }
 
         public void Remove(WorldClient client)

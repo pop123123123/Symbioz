@@ -85,14 +85,14 @@ namespace Symbioz.World.Models
             actors.AddRange(GetPlayers());
             return actors;
         }
-         
+
         public void SyncMonsters()
         {
             lock (this)
             {
                 if (MonstersGroups.Count > 0 || Record.HaveZaap || !MapNoSpawnRecord.CanSpawn(Record.Id))
                     return;
-                                AsyncRandom random = new AsyncRandom();
+                AsyncRandom random = new AsyncRandom();
                 if (this.Record.DugeonMap)
                 {
                     if (this.MonstersGroups.Count == 0)
@@ -147,10 +147,13 @@ namespace Symbioz.World.Models
         public void OnFighterRemoved(int fightid, int teamid, int fighterid)
         {
             var fight = Fights.Find(x => x.fightId == fightid);
-            var team = fight.fightTeams.FirstOrDefault(x => x.teamId == teamid);
-            team.teamMembers.RemoveAll(x => x.id == fighterid);
-            Send(new GameRolePlayRemoveChallengeMessage(fightid));
-            Send(new GameRolePlayShowChallengeMessage(fight));
+            if (fight != null)
+            {
+                var team = fight.fightTeams.FirstOrDefault(x => x.teamId == teamid);
+                team.teamMembers.RemoveAll(x => x.id == fighterid);
+                Send(new GameRolePlayRemoveChallengeMessage(fightid));
+                Send(new GameRolePlayShowChallengeMessage(fight));
+            }
         }
         public void ShowFightsCount(WorldClient client)
         {

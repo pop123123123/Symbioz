@@ -412,7 +412,7 @@ namespace Symbioz.World.Models.Fights
             OnFightEnded(winner);
             foreach (var fighter in GetAllCharacterFighters(true).FindAll(x => !x.HasLeft))
             {
-                if (Started)
+               // if (Started)
                     ShowFightResults(results, fighter.Client);
             }
             Dispose(); 

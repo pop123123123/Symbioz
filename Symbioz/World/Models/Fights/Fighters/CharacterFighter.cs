@@ -127,6 +127,7 @@ namespace Symbioz.World.Models.Fights.Fighters
             if (!Fight.Started)
             {
                 Fight.Send(new GameFightRemoveTeamMemberMessage((short)Fight.Id, Team.Id, fighter.ContextualId));
+                if (Fight.FightType != FightTypeEnum.FIGHT_TYPE_PVP_ARENA)
                 Fight.Map.Instance.OnFighterRemoved(Fight.Id, Team.Id, fighter.ContextualId);
                 Team.RemoveFighter(fighter);
             }
@@ -145,6 +146,7 @@ namespace Symbioz.World.Models.Fights.Fighters
             {
                 RemoveCompanion();
                 Fight.Send(new GameFightRemoveTeamMemberMessage((short)Fight.Id, Team.Id, ContextualId));
+                if (Fight.FightType != FightTypeEnum.FIGHT_TYPE_PVP_ARENA)
                 Fight.Map.Instance.OnFighterRemoved(Fight.Id, Team.Id, ContextualId);
                 Team.RemoveFighter(this);
                 Fight.CheckFightEnd();

@@ -35,7 +35,7 @@ namespace Symbioz.Providers
 
         public const int DEFAULT_RANK = 300;
 
-        public const int FIGHTERS_PER_TEAM = 3; // 3 (3vs3)
+        public const int FIGHTERS_PER_TEAM = 1; // 3 (3vs3)
 
         public const sbyte SEARCH_LEVEL_SHIFT = 20;
 
@@ -68,16 +68,17 @@ namespace Symbioz.Providers
         {
             lock (m_locker)
             {
-             
+
                 ArenaGroup group = m_arena_groups.Find(x => x.Contains(client));
-                
+
                 if (group == null)
                     Logger.Error("Unable to unregister " + client.Character.Record.Name + " no arena linked to this character");
                 else
                 {
+                    group.Clients.FindAll(x => x.Ready).ForEach(x => x.UpdateRegistrationStatus(true, PvpArenaStepEnum.ARENA_STEP_REGISTRED));
+                    group.Clients.ForEach(x => x.Ready = false);
                     group.Clients.FindAll(x => x.Requested).ForEach(x => x.AbortRequest(client.Character.Id));
                     group.GetClient(client).UpdateRegistrationStatus(false, PvpArenaStepEnum.ARENA_STEP_UNREGISTER);
-              
                     group.Remove(client);
                     if (group.Empty)
                     {
@@ -106,7 +107,7 @@ namespace Symbioz.Providers
                 {
                     group.Answer(client, accept);
                 }
-               
+
             }
         }
         public bool IsSearching(WorldClient client)
