@@ -255,6 +255,7 @@ namespace Symbioz.World.Models.Parties
         public void RemoveMember(WorldClient c)
         {
             this.Members.Remove(c);
+            c.Character.PartyMember = null;
             this.PMembers.Remove(c.Character.PartyMember);
         }
 

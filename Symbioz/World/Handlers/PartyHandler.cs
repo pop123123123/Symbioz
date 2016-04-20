@@ -116,6 +116,9 @@ namespace Symbioz.World.Handlers
         [MessageHandler]
         public static void PartyGetInvitationDetailsRequest(PartyInvitationDetailsRequestMessage message, WorldClient client)
         {
+            client.Character.Reply("Cette fonctionnalité n'est pas encore implémentée");
+            return;
+
             Party p = WorldServer.Instance.Parties.Find(x => x.Id == message.partyId);
             if (p != null)
             {
