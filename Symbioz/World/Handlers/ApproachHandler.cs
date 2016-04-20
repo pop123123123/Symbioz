@@ -24,7 +24,7 @@ namespace Symbioz.World.Handlers
 {
     class ApproachHandler
     {
-        public static char[] UnauthorizedNameContent = new char[] { '[', '{', '}', ']' ,'\''};
+        public static char[] UnauthorizedNameContent = new char[] { '[', '{', '}', ']', '\'' };
 
         [MessageHandler]
         public static void HandleAuthentificationTicket(AuthenticationTicketMessage message, WorldClient client)
@@ -66,7 +66,7 @@ namespace Symbioz.World.Handlers
             }
             if (CharacterRecord.CheckCharacterNameExist(message.name))
             {
-               
+
                 client.Send(new CharacterCreationResultMessage((sbyte)CharacterCreationResultEnum.ERR_NAME_ALREADY_EXISTS));
                 return;
             }
@@ -116,11 +116,12 @@ namespace Symbioz.World.Handlers
 
             client.Send(new CharactersListMessage(client.Characters.ConvertAll<CharacterBaseInformations>(x => x.GetBaseInformation()), false));
         }
-    
+
         static void ProcessSelection(WorldClient client)
         {
             client.Send(new CharacterSelectedSuccessMessage(new CharacterBaseInformations((uint)client.Character.Id, (byte)client.Character.Record.Level, client.Character.Record.Name, client.Character.Look.ToEntityLook(), (sbyte)client.Character.Record.Breed, client.Character.Record.Sex), false));
             StatsRecord.InitializeCharacter(client.Character);
+
             client.Character.Inventory.Refresh();
             client.Character.RefreshShortcuts();
             client.Character.RefreshEmotes();
@@ -129,14 +130,11 @@ namespace Symbioz.World.Handlers
             client.Character.RefreshSpells();
             client.Character.RefreshArenasInfos();
             client.Character.RefreshPvPInfos();
+            client.Character.OnConnectedGuildInformations();
             client.Character.OnConnectedNotifications();
             client.Send(new CharacterCapabilitiesMessage(4095));
             client.Send(new CharacterLoadingCompleteMessage());
-            if (GuildProvider.Instance.HasGuild(client.Character.Id)) {
-                client.Send(new GuildMembershipMessage(client.Character.GetGuild().GetGuildInformations(),CharacterGuildRecord.GetCharacterGuild(client.Character.Id).Rights,true));
-                client.Character.HumanOptions.Add(new HumanOptionGuild(client.Character.GetGuild().GetGuildInformations()));
-                client.Character.RefreshOnMapInstance();
-            }
+          
 
         }
         [MessageHandler]

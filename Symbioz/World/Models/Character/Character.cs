@@ -99,6 +99,15 @@ namespace Symbioz.World.Models
             this.PlayerStatus = new PlayerStatus((sbyte)PlayerStatusEnum.PLAYER_STATUS_AVAILABLE);
             this.AFKMessage = null;
         }
+        public void OnConnectedGuildInformations()
+        {
+            if (HasGuild)
+            {
+                Client.Send(new GuildMembershipMessage(this.GetGuild().GetGuildInformations(), CharacterGuildRecord.GetCharacterGuild(this.Id).Rights, true));
+                this.HumanOptions.Add(new HumanOptionGuild(this.GetGuild().GetGuildInformations()));
+                Client.Character.RefreshOnMapInstance();
+            }
+        }
         public CharacterFighter CreateFighter(FightTeam team)
         {
             Look.UnsetAura();
@@ -332,23 +341,23 @@ namespace Symbioz.World.Models
             RefreshSpells();
             RefreshShortcuts();
             Client.Send(new CharacterLevelUpMessage(Record.Level));
-            if(this.PartyMember != null)
+            if (this.PartyMember != null)
             {
-                foreach(WorldClient c in this.PartyMember.Party.Members)
+                foreach (WorldClient c in this.PartyMember.Party.Members)
                 {
                     c.Send(new PartyUpdateMessage((uint)this.PartyMember.Party.Id,
                         this.PartyMember.GetPartyMemberInformations()));
                 }
             }
-            if(level >= 100 && !this.Record.KnownOrnaments.Contains(13))
+            if (level >= 100 && !this.Record.KnownOrnaments.Contains(13))
             {
                 this.AddOrnament(13);
             }
-            else if(level>=160 && !this.Record.KnownOrnaments.Contains(14))
+            else if (level >= 160 && !this.Record.KnownOrnaments.Contains(14))
             {
                 this.AddOrnament(14);
             }
-            else if(level >= 200 && !this.Record.KnownOrnaments.Contains(15))
+            else if (level >= 200 && !this.Record.KnownOrnaments.Contains(15))
             {
                 this.AddOrnament(15);
             }
@@ -718,9 +727,9 @@ namespace Symbioz.World.Models
 
         public void RefreshGroupInformations()
         {
-            if(this.PartyMember != null)
+            if (this.PartyMember != null)
             {
-                foreach(WorldClient client in this.PartyMember.Party.Members)
+                foreach (WorldClient client in this.PartyMember.Party.Members)
                 {
                     client.Send(new PartyUpdateMessage((uint)this.PartyMember.Party.Id,
                         this.PartyMember.GetPartyMemberInformations()));

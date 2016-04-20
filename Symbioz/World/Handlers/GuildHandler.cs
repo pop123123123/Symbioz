@@ -57,7 +57,11 @@ namespace Symbioz.World.Handlers
         [MessageHandler]
         public static void HandleGuildChangeMemberParameters(GuildChangeMemberParametersMessage message, WorldClient client)
         {
-            Logger.Log(message.rank);
+            CharacterGuildRecord member = CharacterGuildRecord.GetCharacterGuild((int)message.memberId);
+            member.Rank = message.rank;
+            member.ExperienceGivenPercent = message.experienceGivenPercent;
+            member.Rights = message.rights;
+            SendGuildInformationsMembers(client);
         }
         [MessageHandler]
         public static void HandleGuildGetInformations(GuildGetInformationsMessage message, WorldClient client)
@@ -65,24 +69,10 @@ namespace Symbioz.World.Handlers
             switch ((GuildInformationsTypeEnum)message.infoType)
             {
                 case GuildInformationsTypeEnum.INFO_GENERAL:
-
-                    GuildRecord guild = GuildRecord.GetGuild(client.Character.GuildId);
-
-                    ulong expFloor = ExperienceRecord.GetExperienceForGuild((ushort)(guild.Level));
-
-                    ulong expNextFloor = ExperienceRecord.GetExperienceForGuild((ushort)(guild.Level + 1));
-
-                    client.Send(new GuildInformationsGeneralMessage(true, false,
-                        (byte)guild.Level, expFloor, guild.Experience, expNextFloor, 0,
-                        (ushort)CharacterGuildRecord.MembersCount(guild.Id),
-                        (ushort)GuildProvider.Instance.ConnectedMembersCount(guild.Id)));
-
+                    SendGuildInformationsGeneral(client);
                     break;
-
                 case GuildInformationsTypeEnum.INFO_MEMBERS:
-
-                    client.Send(new GuildInformationsMembersMessage(
-                        CharacterGuildRecord.GetMembers(client.Character.GuildId)));
+                    SendGuildInformationsMembers(client);
                     break;
                 case GuildInformationsTypeEnum.INFO_BOOSTS:
                     break;
@@ -98,5 +88,31 @@ namespace Symbioz.World.Handlers
                     break;
             }
         }
+
+        #region GuildInformations
+
+        public static void SendGuildInformationsMembers(WorldClient client)
+        {
+            var members = CharacterGuildRecord.GetMembers(client.Character.GuildId);
+            client.Send(new GuildInformationsMembersMessage(
+                       members));
+        }
+
+        public static void SendGuildInformationsGeneral(WorldClient client)
+        {
+            GuildRecord guild = GuildRecord.GetGuild(client.Character.GuildId);
+
+            ulong expFloor = ExperienceRecord.GetExperienceForGuild((ushort)(guild.Level));
+
+            ulong expNextFloor = ExperienceRecord.GetExperienceForGuild((ushort)(guild.Level + 1));
+
+            client.Send(new GuildInformationsGeneralMessage(true, false,
+                (byte)guild.Level, expFloor, guild.Experience, expNextFloor, 0,
+                (ushort)CharacterGuildRecord.MembersCount(guild.Id),
+                (ushort)GuildProvider.Instance.ConnectedMembersCount(guild.Id)));
+        }
+
+        #endregion
+
     }
 }
