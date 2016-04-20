@@ -313,6 +313,7 @@
     <Compile Include="World\Records\Character\CharacterJobRecord.cs" />
     <Compile Include="World\Records\Character\SpellShortcutRecord.cs" />
     <Compile Include="World\Records\Items\WeaponRecord.cs" />
+    <Compile Include="World\Records\Maps\MapPositionRecord.cs" />
     <Compile Include="World\Records\Maps\MapScrollActionRecord.cs" />
     <Compile Include="World\Records\Monsters\DungeonRecord.cs" />
     <Compile Include="World\Records\Spells\BombWallRecord.cs" />

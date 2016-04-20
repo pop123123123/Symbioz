@@ -1,5 +1,7 @@
 ﻿using Symbioz.Core;
+using Symbioz.DofusProtocol.Messages;
 using Symbioz.Enums;
+using Symbioz.Network.Clients;
 using Symbioz.World.Models.Fights.Fighters;
 using Symbioz.World.Records.Spells;
 using System;
@@ -34,6 +36,13 @@ namespace Symbioz
         public static T XMLDeserialize<T>(this string content)
         {
             return (T)XMLDeserialize(typeof(T), content);
+        }
+        public static void SendTo(this IEnumerable<WorldClient> clients,Message message)
+        {
+            foreach (var client in clients)
+            {
+                client.Send(message);
+            }
         }
     }
 }

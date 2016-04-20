@@ -38,6 +38,7 @@ namespace Symbioz.World.Records.Guilds
             this.Id = id;
             this.Name = name;
             this.SymbolShape = symbolShape;
+            this.SymbolColor = symbolColor;
             this.BackgroundShape = backgroundShape;
             this.BackgroundColor = backgroundColor;
             this.Level = level;
@@ -45,7 +46,7 @@ namespace Symbioz.World.Records.Guilds
         }
         public GuildInformations GetGuildInformations()
         {
-            return new GuildInformations((uint)Id, Name, new GuildEmblem(SymbolShape, 0, BackgroundShape, BackgroundColor));
+            return new GuildInformations((uint)Id, Name, new GuildEmblem(SymbolShape, SymbolColor, BackgroundShape, BackgroundColor));
         }
         public BasicGuildInformations GetBasicInformations()
         {
@@ -59,6 +60,7 @@ namespace Symbioz.World.Records.Guilds
         {
             return Guilds.Find(x => x.Name == guildName) == null;
         }
+
         public static int PopNextId()
         {
             Locker.EnterReadLock();

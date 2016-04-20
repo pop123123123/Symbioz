@@ -116,8 +116,8 @@ namespace Symbioz.World.Handlers
         [MessageHandler]
         public static void PartyGetInvitationDetailsRequest(PartyInvitationDetailsRequestMessage message, WorldClient client)
         {
-            client.Character.Reply("Cette fonctionnalité n'est pas encore implémentée");
-            return;
+            //client.Character.Reply("Cette fonctionnalité n'est pas encore implémentée");
+            //return;
 
             Party p = WorldServer.Instance.Parties.Find(x => x.Id == message.partyId);
             if (p != null)
@@ -190,7 +190,7 @@ namespace Symbioz.World.Handlers
         [MessageHandler]
         public static void HandlePartyInvitationDungeonRequest(PartyInvitationDungeonRequestMessage message, WorldClient client)
         {
-            WorldClient target = WorldServer.Instance.GetAllClientsOnline().Find(x => x.Character.Record.Name == message.name);
+            WorldClient target = WorldServer.Instance.GetOnlineClient(message.name);
             Party p;
             if (client.Character.PartyMember == null)
             {

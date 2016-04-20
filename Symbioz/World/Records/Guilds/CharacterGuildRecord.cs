@@ -1,4 +1,5 @@
 ﻿using Symbioz.DofusProtocol.Types;
+using Symbioz.Enums;
 using Symbioz.Network.Servers;
 using Symbioz.ORM;
 using System;
@@ -27,6 +28,18 @@ namespace Symbioz.World.Records.Guilds
         [Update]
         public uint Rights;
 
+        [Ignore]
+        public GuildRightsBitEnum RealRights
+        {
+            get
+            {
+                return (GuildRightsBitEnum)this.Rights;
+            }
+            set
+            {
+                this.Rights = (uint)value;
+            }
+        }
         public CharacterGuildRecord(int characterId, int guildId, ushort rank, ulong givenExperience, sbyte experienceGivenPercent, uint rights)
         {
             this.CharacterId = characterId;
@@ -47,6 +60,10 @@ namespace Symbioz.World.Records.Guilds
             CharacterRecord cRecord = CharacterRecord.GetCharacterRecordById(CharacterId);
             return new GuildMember((uint)CharacterId, cRecord.Level, cRecord.Name, cRecord.Breed, cRecord.Sex, Rank, GivenExperience, ExperienceGivenPercent,
                 Rights, connected, cRecord.AlignmentSide, 0, 0, cRecord.AccountId, 0, WorldServer.Instance.GetOnlineClient(CharacterId).Character.PlayerStatus);
+        }
+        public bool HasRight(GuildRightsBitEnum right)
+        {
+            return this.RealRights == GuildRightsBitEnum.GUILD_RIGHT_BOSS || this.RealRights.HasFlag(right);
         }
         public static bool HasGuild(int characterId)
         {
