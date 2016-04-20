@@ -353,11 +353,11 @@ namespace Symbioz.World.Models
             {
                 this.AddOrnament(13);
             }
-            else if (level >= 160 && !this.Record.KnownOrnaments.Contains(14))
+            if (level >= 160 && !this.Record.KnownOrnaments.Contains(14))
             {
                 this.AddOrnament(14);
             }
-            else if (level >= 200 && !this.Record.KnownOrnaments.Contains(15))
+            if (level >= 200 && !this.Record.KnownOrnaments.Contains(15))
             {
                 this.AddOrnament(15);
             }
