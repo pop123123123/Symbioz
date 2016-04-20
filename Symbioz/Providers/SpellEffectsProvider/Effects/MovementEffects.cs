@@ -20,7 +20,7 @@ namespace Symbioz.Providers.SpellEffectsProvider.Effects
             var dir = ShapesProvider.GetDirectionFromTwoCells(fighter.CellId, castcellid);
             var movedCellAmount = (short)(PathHelper.GetDistanceBetween(fighter.CellId, castcellid));
             fighter.Fight.Reply(movedCellAmount.ToString());
-            var line = ShapesProvider.GetLineFromDirection(fighter.CellId,movedCellAmount, dir);
+            var line = ShapesProvider.GetLineFromDirection(fighter.CellId, movedCellAmount, dir);
             if (line.Count > 0)
             {
                 var target = fighter.Fight.GetFighter(line.First());
@@ -33,11 +33,14 @@ namespace Symbioz.Providers.SpellEffectsProvider.Effects
                 }
             }
         }
-        [EffectHandler(EffectsEnum.Eff_1104)]
+        [EffectHandler(EffectsEnum.Eff_1104)] // Xelor
         public static void SymetryToTargetMove(Fighter fighter, SpellLevelRecord level, ExtendedSpellEffect effect, List<Fighter> affecteds, short castcellid)
         {
+            var symetrySource = fighter.Fight.GetFighter(castcellid);
+            if (symetrySource == null)
+                return;
             var direction = ShapesProvider.GetDirectionFromTwoCells(fighter.CellId, castcellid);
-            var line = ShapesProvider.GetLineFromDirection(fighter.CellId, (short)(PathHelper.GetDistanceBetween(fighter.CellId, castcellid)*2), direction);
+            var line = ShapesProvider.GetLineFromDirection(fighter.CellId, (short)(PathHelper.GetDistanceBetween(fighter.CellId, castcellid) * 2), direction);
             short destinationCell = line.Last();
             if (fighter.Fight.IsObstacle(destinationCell))
             {
@@ -58,7 +61,17 @@ namespace Symbioz.Providers.SpellEffectsProvider.Effects
             foreach (Fighter affected in affecteds)
             {
                 var direction = ShapesProvider.GetDirectionFromTwoCells(castcellid, fighter.CellId);
-                var line = ShapesProvider.GetLineFromDirection(affected.CellId,(short)(PathHelper.GetDistanceBetween(fighter.CellId,affected.CellId)*2), direction);
+                List<short> line = new List<short>();
+                if (ShapesProvider.IsDiagonalDirection(direction))
+                {
+                   // enfait il faut faire un algorythme de symetrie
+                }
+                else
+                {
+                    line = ShapesProvider.GetLineFromDirection(affected.CellId, (short)(PathHelper.GetDistanceBetween(fighter.CellId, affected.CellId) * 2), direction);
+                }
+                if (line.Count == 0)
+                    return;
                 short destinationCell = line.Last();
                 if (fighter.Fight.IsObstacle(destinationCell))
                 {
@@ -74,10 +87,10 @@ namespace Symbioz.Providers.SpellEffectsProvider.Effects
                 }
             }
         }
-        [EffectHandler(EffectsEnum.Eff_1106)] // symétrie esprit félin frappe xélor etc
+        [EffectHandler(EffectsEnum.Eff_1106)] // symétrie esprit 
         public static void SymetryMove(Fighter fighter, SpellLevelRecord level, ExtendedSpellEffect effect, List<Fighter> affecteds, short castcellid)
         {
-            var direction = ShapesProvider.GetDirectionFromTwoCells(fighter.CellId,castcellid);
+            var direction = ShapesProvider.GetDirectionFromTwoCells(fighter.CellId, castcellid);
             var line = ShapesProvider.GetLineFromDirection(fighter.CellId, 2, direction);
             short destinationCell = line.Last();
             if (fighter.Fight.IsObstacle(destinationCell))
@@ -170,7 +183,7 @@ namespace Symbioz.Providers.SpellEffectsProvider.Effects
                 }
                 else
                 {
-                   direction = ShapesProvider.GetDirectionFromTwoCells(target.CellId, fighter.CellId);
+                    direction = ShapesProvider.GetDirectionFromTwoCells(target.CellId, fighter.CellId);
                 }
                 List<short> line = ShapesProvider.GetLineFromDirection(target.CellId, effect.BaseEffect.DiceNum, direction);
                 List<short> cells = fighter.Fight.BreakAtFirstObstacles(line);

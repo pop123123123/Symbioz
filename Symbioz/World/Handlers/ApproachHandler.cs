@@ -110,7 +110,7 @@ namespace Symbioz.World.Handlers
             CharacterSpellRecord.RemoveAll(message.characterId);
             CharacterJobRecord.RemoveAll(message.characterId);
             BidShopGainRecord.RemoveAll(message.characterId);
-            CharacterGuildRecord.RemoveAll(message.characterId);
+            CharacterGuildRecord.RemoveAll(message.characterId); // Si il est meneur de guilde?
             BidShopItemRecord.RemoveAll(message.characterId);
             Logger.Log("Character " + deletedCharacter.Name + " deleted");
 

@@ -329,6 +329,14 @@ namespace Symbioz.World.PathProvider
                     return null;
             }
         }
+        public static bool IsDiagonalDirection(DirectionsEnum direction)
+        {
+            if (direction == DirectionsEnum.DIRECTION_EAST || direction == DirectionsEnum.DIRECTION_NORTH ||
+                direction == DirectionsEnum.DIRECTION_SOUTH || direction == DirectionsEnum.DIRECTION_WEST)
+                return true;
+            else
+                return false;
+        }
         public static List<short> GetLineFromDirection(short startcell, short movecellamount, DirectionsEnum direction)
         {
             switch (direction)
