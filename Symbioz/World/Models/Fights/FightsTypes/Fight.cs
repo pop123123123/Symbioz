@@ -412,7 +412,7 @@ namespace Symbioz.World.Models.Fights
             OnFightEnded(winner);
             foreach (var fighter in GetAllCharacterFighters(true).FindAll(x => !x.HasLeft))
             {
-               // if (Started)
+                if (Started)
                     ShowFightResults(results, fighter.Client);
             }
             Dispose(); 
@@ -507,7 +507,8 @@ namespace Symbioz.World.Models.Fights
         public List<FightResultListEntry> GetFightResults(TeamColorEnum winner)
         {
             List<FightResultListEntry> results = new List<FightResultListEntry>();
-            foreach (Fighter fighter in GetAllFighters(true))
+            var fighters = GetAllFighters(true);
+            foreach (Fighter fighter in fighters)
             {
                 if (fighter is CharacterFighter)
                 {

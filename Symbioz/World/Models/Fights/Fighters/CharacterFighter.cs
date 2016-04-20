@@ -164,8 +164,9 @@ namespace Symbioz.World.Models.Fights.Fighters
                 RemoveCompanion();
                 if (!Dead)
                     Die();
-                Fight.Synchronizer.Start(AknowlegeAndLeave);
                 HasLeft = true;
+                Fight.Synchronizer.Start(AknowlegeAndLeave);
+              
             }
 
         }
@@ -177,9 +178,15 @@ namespace Symbioz.World.Models.Fights.Fighters
                     EndTurn();
                 Fight.CheckFightEnd(); ;
                 Fight.Send(new GameFightLeaveMessage(ContextualId));
-                if (Fight.Started)
+        
+                if (Fight.Started && Fight.FightType != FightTypeEnum.FIGHT_TYPE_PVP_ARENA)
                     Fight.ShowFightResults(Fight.GetFightResults(GetOposedTeam().TeamColor), Client);
+                if (Fight.FightType == FightTypeEnum.FIGHT_TYPE_PVP_ARENA)
+                {
+                    Client.Send(new GameRolePlayArenaRegistrationStatusMessage(false, (sbyte)PvpArenaStepEnum.ARENA_STEP_UNREGISTER, ArenaProvider.FIGHTERS_PER_TEAM));
+                }
                 Client.Character.RejoinMap(Fight.SpawnJoin, false);
+                
             }
             catch { }
 

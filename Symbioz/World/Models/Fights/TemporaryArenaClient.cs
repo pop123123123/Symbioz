@@ -51,7 +51,7 @@ namespace Symbioz.World.Models.Fights
         {
             WorldClient.Send(new GameRolePlayArenaFighterStatusMessage(0, playerId, false));
             Ready = false;
-            WorldClient.Character.Reply("Un des membres du groupe n'a pas accepter le kolizeum.");
+            WorldClient.Character.Reply("Un des joueur n'a pas accepter le kolizeum.");
         }
     }
 }
