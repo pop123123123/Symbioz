@@ -6,6 +6,7 @@ using Symbioz.Network.Servers;
 using Symbioz.World.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
@@ -24,7 +25,7 @@ namespace Symbioz.Network.Clients
             this.SSyncClient.OnClosed += SSyncClient_OnClosed;
 
             Send(new ProtocolRequired(ConstantsRepertory.DOFUS_PROTOCOL_VERSION, ConstantsRepertory.DOFUS_PROTOCOL_VERSION));
-            Send(new RawDataMessage(Convert.FromBase64String(new string(DofusPublicKey.Skip(1).ToArray()))));
+            Send(new RawDataMessage(Convert.FromBase64String(new string(DofusPublicKey.Skip(1).ToArray()))));    
         }
 
         void SSyncClient_OnClosed()

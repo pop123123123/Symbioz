@@ -15,6 +15,8 @@ using Symbioz.World.Records;
 using Symbioz.World.Models.Items;
 using Symbioz.DofusProtocol.Types;
 using Symbioz.World.Models;
+using Symbioz.Network.Clients;
+using System.IO;
 
 namespace Symbioz
 {
@@ -22,13 +24,14 @@ namespace Symbioz
     {
         static void Main(string[] args)
         {
+          
             Logger.OnStartup();
 
             Startup.Initialize();
 
             if (ConfigurationManager.Instance.SafeRun)
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException; // Safe Run
-     
+           
             Startup.StartServers();
 
             new Thread(new ThreadStart(SymbiozCommands.HandleCommands)).Start();
