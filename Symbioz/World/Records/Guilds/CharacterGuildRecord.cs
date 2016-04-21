@@ -1,5 +1,6 @@
 ﻿using Symbioz.DofusProtocol.Types;
 using Symbioz.Enums;
+using Symbioz.Network.Clients;
 using Symbioz.Network.Servers;
 using Symbioz.ORM;
 using System;
@@ -57,9 +58,39 @@ namespace Symbioz.World.Records.Guilds
         public GuildMember GetGuildMember()
         {
             sbyte connected = (sbyte)(WorldServer.Instance.IsConnected(CharacterId) ? 1 : 0);
+            sbyte status = (sbyte)(WorldServer.Instance.IsConnected(CharacterId) ? WorldServer.Instance.GetOnlineClient(CharacterId).Character.PlayerStatus.statusId : 0);
             CharacterRecord cRecord = CharacterRecord.GetCharacterRecordById(CharacterId);
             return new GuildMember((uint)CharacterId, cRecord.Level, cRecord.Name, cRecord.Breed, cRecord.Sex, Rank, GivenExperience, ExperienceGivenPercent,
-                Rights, connected, cRecord.AlignmentSide, 0, 0, cRecord.AccountId, 0, WorldServer.Instance.GetOnlineClient(CharacterId).Character.PlayerStatus);
+                Rights, connected, cRecord.AlignmentSide, 0, 0, cRecord.AccountId, 0, new PlayerStatus(status));
+        }
+        public void ChangeParameters(WorldClient changer, ushort rank, sbyte experienceGivenPercent, uint rights)
+        {
+            GuildRecord guild = changer.Character.GetGuild();
+            if (guild == null || guild.Id != this.GuildId)
+                return;
+            CharacterGuildRecord modifier = CharacterGuildRecord.GetCharacterGuild(changer.Character.Id);
+            if (modifier != this)
+            {
+                if (modifier.HasRight(GuildRightsBitEnum.GUILD_RIGHT_MANAGE_XP_CONTRIBUTION))
+                {
+                    this.ExperienceGivenPercent = experienceGivenPercent;
+                }
+            }
+            else
+            {
+                if (this.HasRight(GuildRightsBitEnum.GUILD_RIGHT_MANAGE_MY_XP_CONTRIBUTION))
+                {
+                    this.ExperienceGivenPercent = experienceGivenPercent;
+                }
+            }
+            if (modifier.HasRight(GuildRightsBitEnum.GUILD_RIGHT_MANAGE_RANKS))
+            {
+                this.Rank = rank;
+            }
+            if (modifier.HasRight(GuildRightsBitEnum.GUILD_RIGHT_MANAGE_RIGHTS))
+            {
+                this.Rights = rights;
+            }
         }
         public bool HasRight(GuildRightsBitEnum right)
         {
@@ -80,6 +111,15 @@ namespace Symbioz.World.Records.Guilds
         public static void RemoveAll(int characterId)
         {
             CharactersGuilds.FindAll(x => x.CharacterId == characterId).ForEach(x => x.RemoveElement());
+        }
+        [BeforeSave]
+        public static void BeforeSave()
+        {
+            var members = CharacterGuildRecord.CharactersGuilds;
+            foreach (var member in members)
+            {
+                SaveTask.UpdateElement(member);
+            }
         }
     }
 }

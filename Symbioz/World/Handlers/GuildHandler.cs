@@ -58,10 +58,13 @@ namespace Symbioz.World.Handlers
         public static void HandleGuildChangeMemberParameters(GuildChangeMemberParametersMessage message, WorldClient client)
         {
             CharacterGuildRecord member = CharacterGuildRecord.GetCharacterGuild((int)message.memberId);
-            member.Rank = message.rank;
-            member.ExperienceGivenPercent = message.experienceGivenPercent;
-            member.Rights = message.rights;
+            member.ChangeParameters(client, message.rank, message.experienceGivenPercent, message.rights);
             SendGuildInformationsMembers(client);
+            if (WorldServer.Instance.IsConnected(member.CharacterId))
+            {
+                WorldClient c = WorldServer.Instance.GetOnlineClient(member.CharacterId);
+                c.Send(new GuildMembershipMessage(c.Character.GetGuild().GetGuildInformations(),message.rights,true));
+            }
         }
         [MessageHandler]
         public static void HandleGuildGetInformations(GuildGetInformationsMessage message, WorldClient client)
