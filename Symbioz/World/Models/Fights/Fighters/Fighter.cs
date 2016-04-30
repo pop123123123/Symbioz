@@ -63,6 +63,10 @@ namespace Symbioz.World.Models.Fights.Fighters
 
         public short SummonCount { get { return (short)GetAliveFighterSummons().Count(); } }
 
+        public List<short> LastPosition = new List<short>();
+
+        public short LastTurnPosition = 0;
+
         public Fighter(FightTeam team)
         {
             this.Team = team;
@@ -127,7 +131,7 @@ namespace Symbioz.World.Models.Fights.Fighters
                 return;
             }
             IncrementBombs();
-
+            LastTurnPosition = CellId;
             UpdateBuffs();
             DecrementGlyphsDuration();
             ApplyFighterEvent(FighterEventType.ON_TURN_STARTED, null);
@@ -171,10 +175,11 @@ namespace Symbioz.World.Models.Fights.Fighters
             RefreshStats();
             Fight.Synchronizer.Start(Fight.NewTurn);
         }
-        public void Teleport(short cellid)
+        public void Teleport(short cellid,bool save = true)
         {
             if (Fight.Ended)
                 return;
+            this.LastPosition.Add(this.CellId);
             this.Fight.TryStartSequence(ContextualId, 5);
             this.Fight.Send(new GameActionFightTeleportOnSameMapMessage(4, ContextualId, ContextualId, cellid));
             this.CellId = cellid;
@@ -202,6 +207,7 @@ namespace Symbioz.World.Models.Fights.Fighters
         public void Slide(int sourceid, List<short> cells)
         {
             ApplyFighterEvent(FighterEventType.BEFORE_MOVE, cells);
+            LastPosition.Add(CellId);
             cells = CheckMarks(cells);
             Fight.TryStartSequence(ContextualId, 5);
             Fight.Send(new GameActionFightSlideMessage(0, sourceid, ContextualId, CellId, cells.Last()));
@@ -220,6 +226,7 @@ namespace Symbioz.World.Models.Fights.Fighters
             ApplyFighterEvent(FighterEventType.BEFORE_MOVE, path);
             this.Fight.TryStartSequence(ContextualId, 5);
             this.Fight.Send(new GameMapMovementMessage(path, ContextualId));
+            this.AddToLastPosition(path);
             short mpcost = (short)PathHelper.GetDistanceBetween(CellId, path.Last());
             FighterStats.Stats.MovementPoints -= mpcost;
             this.CellId = path.Last();
@@ -750,6 +757,13 @@ namespace Symbioz.World.Models.Fights.Fighters
             else
                 return true;
 
+        }
+
+        public void AddToLastPosition(List<short> path)
+        {
+            foreach (short pos in path) {
+                LastPosition.Add(pos);
+            }
         }
     }
 }

@@ -21,16 +21,19 @@ namespace Symbioz.World.Models.Parties
 
         public int MAX_PARTY_MEMBER_COUNT = 8;
 
+        public PartyTypeEnum PartyType;
+
         public List<WorldClient> Members = new List<WorldClient>();
         public List<PartyMember> PMembers = new List<PartyMember>();
         public List<WorldClient> Guests = new List<WorldClient>();
         public List<PartyGuest> PGuests = new List<PartyGuest>();
 
-        public Party(int id, int bossCharacterId, string name)
+        public Party(int id, int bossCharacterId, string name, PartyTypeEnum type = PartyTypeEnum.PARTY_TYPE_CLASSICAL)
         {
             this.Id = id;
             this.BossCharacterId = bossCharacterId;
             this.Name = name;
+            this.PartyType = type;
             WorldServer.Instance.Parties.Add(this);
         }
 
@@ -184,11 +187,11 @@ namespace Symbioz.World.Models.Parties
         {
             if (newLeader == 0)
             {
-                this.BossCharacterId = this.PMembers.First().C.Id;
+                this.BossCharacterId = this.PMembers.First().Character.Id;
             }
             else
             {
-                this.BossCharacterId = this.PMembers.Find(x => x.C.Id == newLeader).C.Id;
+                this.BossCharacterId = this.PMembers.Find(x => x.Character.Id == newLeader).Character.Id;
             }
             Members.SendTo(new PartyLeaderUpdateMessage((uint)this.Id, (uint)this.BossCharacterId));
 
@@ -196,7 +199,7 @@ namespace Symbioz.World.Models.Parties
 
         public PartyMemberInformations GetPartyMemberInformations(int id)
         {
-            PartyMember m = this.PMembers.Find(x => x.C.Id == id);
+            PartyMember m = this.PMembers.Find(x => x.Character.Id == id);
             return m.GetPartyMemberInformations();
         }
         public PartyGuestInformations GetPartyGuestInformations(int id)

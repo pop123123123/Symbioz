@@ -98,6 +98,20 @@ namespace Symbioz.Network.Servers
         {
             return this.Parties.Find(x => x.Id == partyId);
         }
+        public Party GetPartyByCharacterId(int characterId)
+        {
+            foreach(WorldClient c in this.WorldClients)
+            {
+                if(c.Character.Id == characterId)
+                {
+                    if(c.Character.PartyMember != null)
+                    {
+                        return c.Character.PartyMember.Party;
+                    }
+                }
+            }
+            return null;
+        }
         public bool IsConnected(string characterName)
         {
             return GetOnlineClient(characterName) != null;

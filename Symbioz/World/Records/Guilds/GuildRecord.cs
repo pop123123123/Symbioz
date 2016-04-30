@@ -1,5 +1,7 @@
 ﻿using Symbioz.DofusProtocol.Types;
+using Symbioz.Enums;
 using Symbioz.ORM;
+using Symbioz.World.Models.Guilds;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,8 +34,10 @@ namespace Symbioz.World.Records.Guilds
 
         public ulong Experience;
 
+        public int MaxTaxCollectors;
+
         public GuildRecord(int id, string name, ushort symbolShape, int symbolColor,
-            sbyte backgroundShape, int backgroundColor, ushort level, ulong experience)
+            sbyte backgroundShape, int backgroundColor, ushort level, ulong experience, int maxTaxCollectors)
         {
             this.Id = id;
             this.Name = name;
@@ -43,6 +47,11 @@ namespace Symbioz.World.Records.Guilds
             this.BackgroundColor = backgroundColor;
             this.Level = level;
             this.Experience = experience;
+            this.MaxTaxCollectors = maxTaxCollectors;
+        }
+        public GuildEmblem GetEmblemObject()
+        {
+            return new GuildEmblem(SymbolShape, SymbolColor, BackgroundShape, BackgroundColor);
         }
         public GuildInformations GetGuildInformations()
         {
@@ -74,6 +83,18 @@ namespace Symbioz.World.Records.Guilds
             {
                 Locker.ExitReadLock();
             }
+        }
+
+        public CharacterGuildRecord GetLeader()
+        {
+            foreach (CharacterGuildRecord member in CharacterGuildRecord.CharactersGuilds.FindAll(x => x.GuildId == this.Id))
+            {
+                if (member.Rights == (uint)GuildRightsBitEnum.GUILD_RIGHT_BOSS)
+                {
+                    return member;
+                }
+            }
+            return null;
         }
 
     }

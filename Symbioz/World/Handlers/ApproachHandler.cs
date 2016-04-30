@@ -131,10 +131,10 @@ namespace Symbioz.World.Handlers
             client.Character.RefreshArenasInfos();
             client.Character.RefreshPvPInfos();
             client.Character.OnConnectedGuildInformations();
+            client.Character.OnConnectedAllianceInformations();
             client.Character.OnConnectedNotifications();
             client.Send(new CharacterCapabilitiesMessage(4095));
             client.Send(new CharacterLoadingCompleteMessage());
-          
 
         }
         [MessageHandler]
