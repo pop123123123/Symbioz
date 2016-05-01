@@ -27,58 +27,55 @@ using Symbioz.Utils;
 namespace Symbioz.DofusProtocol.Messages
 {
 
-public class SelectedServerDataExtendedMessage : SelectedServerDataMessage
-{
+    public class SelectedServerDataExtendedMessage : SelectedServerDataMessage
+    {
 
-public const ushort Id = 6469;
-public override ushort MessageId
-{
-    get { return Id; }
-}
+        public const ushort Id = 6469;
+        public override ushort MessageId
+        {
+            get { return Id; }
+        }
 
-public IEnumerable<ushort> serverIds;
-        
+        public IEnumerable<ushort> serverIds;
 
-public SelectedServerDataExtendedMessage()
-{
-}
 
-public SelectedServerDataExtendedMessage(ushort serverId, string address, ushort port, bool canCreateNewCharacter, IEnumerable<byte> ticket, IEnumerable<ushort> serverIds)
-         : base(serverId, address, port, canCreateNewCharacter, ticket)
+        public SelectedServerDataExtendedMessage()
+        {
+        }
+
+        public SelectedServerDataExtendedMessage(ushort serverId, string address, ushort port, bool canCreateNewCharacter, IEnumerable<byte> ticket, IEnumerable<ushort> serverIds)
+            : base(serverId, address, port, canCreateNewCharacter, ticket)
         {
             this.serverIds = serverIds;
         }
-        
 
-public override void Serialize(ICustomDataOutput writer)
-{
 
-base.Serialize(writer);
+        public override void Serialize(ICustomDataOutput writer)
+        {
+            base.Serialize(writer);
             writer.WriteUShort((ushort)serverIds.Count());
             foreach (var entry in serverIds)
             {
-                 writer.WriteVarUhShort(entry);
+                writer.WriteVarUhShort(entry);
             }
-            
+        }
 
-}
+        public override void Deserialize(ICustomDataInput reader)
+        {
 
-public override void Deserialize(ICustomDataInput reader)
-{
-
-base.Deserialize(reader);
+            base.Deserialize(reader);
             var limit = reader.ReadUShort();
             serverIds = new ushort[limit];
             for (int i = 0; i < limit; i++)
             {
-                 (serverIds as ushort[])[i] = reader.ReadVarUhShort();
+                (serverIds as ushort[])[i] = reader.ReadVarUhShort();
             }
-            
-
-}
 
 
-}
+        }
+
+
+    }
 
 
 }

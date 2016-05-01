@@ -176,7 +176,7 @@ namespace Symbioz.World.Models.Fights.Fighters
             {
                 if (IsPlaying)
                     EndTurn();
-                Fight.CheckFightEnd(); ;
+                Fight.CheckFightEnd(); 
                 Fight.Send(new GameFightLeaveMessage(ContextualId));
         
                 if (Fight.Started && Fight.FightType != FightTypeEnum.FIGHT_TYPE_PVP_ARENA)

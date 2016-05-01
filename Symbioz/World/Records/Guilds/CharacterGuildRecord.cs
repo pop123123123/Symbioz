@@ -91,6 +91,7 @@ namespace Symbioz.World.Records.Guilds
             {
                 this.Rights = rights;
             }
+            SaveTask.UpdateElement(modifier);
         }
         public bool HasRight(GuildRightsBitEnum right)
         {
@@ -112,14 +113,6 @@ namespace Symbioz.World.Records.Guilds
         {
             CharactersGuilds.FindAll(x => x.CharacterId == characterId).ForEach(x => x.RemoveElement());
         }
-        [BeforeSave]
-        public static void BeforeSave()
-        {
-            var members = CharacterGuildRecord.CharactersGuilds;
-            foreach (var member in members)
-            {
-                SaveTask.UpdateElement(member);
-            }
-        }
+       
     }
 }
