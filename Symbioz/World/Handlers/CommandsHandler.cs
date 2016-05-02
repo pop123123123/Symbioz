@@ -13,8 +13,10 @@ using Symbioz.Network.Servers;
 using Symbioz.Providers.Maps;
 using Symbioz.World.Models;
 using Symbioz.World.Models.Fights.Marks;
+using Symbioz.World.Models.Guilds;
 using Symbioz.World.PathProvider;
 using Symbioz.World.Records;
+using Symbioz.World.Records.Guilds;
 using Symbioz.World.Records.Monsters;
 using Symbioz.World.Records.Spells;
 using System;
@@ -548,11 +550,35 @@ namespace Symbioz.World.Handlers
                 client.Character.Reply("le joueur n'éxiste pas ou n'est pas connécté.");
             }
         }
+        public static int lastIndex = -1;
+        [InGameCommand("explore", ServerRoleEnum.FONDATOR)]
+        public static void ExploreCommand(string value, WorldClient client)
+        {
+            /*int[] pos = new int[] { 84675072, 122159619, 84675077, 122160643, 84676102, 82847750, 84674048, 82848774, 122160641, 84675074, 122159617, 67371008, 83891200, 84673538, 83892224, 84804101, 82839558, 83624964, 84673544, 84804104, 84675591, 84672512, 122161665, 84673536, 84674562, 84672513, 84674567, 84804098, 84676100, 84673027, 84674560, 84673540, 84674568, 84674053, 84673031, 84674565, 84673032, 84673030, 84675078, 84674055, 84673542, 122159621, 84804103, 67372032, 84672514, 122161669, 84675589, 122159623, 83889154, 122160645, 84804097, 44042240, 84674566, 82839552, 84676101, 82840576, 84673537, 82841600, 84675079, 82842624, 84672520, 82837506, 84804102, 82838530, 84673541, 82840578, 84672519, 82841602, 84673543, 82842626, 84674564, 82843650, 84674051, 82844674, 84672518, 82837508, 84676098, 82838532, 84674049, 82839556, 84675587, 82840580, 84673029, 82841604, 84674052, 82842628, 84673026, 82843652, 84672517, 82844676, 84675588, 82837510, 83625986, 82838534, 84672516, 82841606, 83888132, 82840582, 84804100, 82843654, 84673025, 82844678, 84675073, 82845702, 84674054, 82846726, 84675586, 82837512, 84674056, 82842630, 84672515, 82838536, 84676099, 82839560, 84676103, 82840584, 84673028, 82841608, 83886084, 82842632, 84675076, 83361792, 84673539, 83362816, 83625984, 83363840, 84674563, 83365888, 84675590, 83362818, 83627008, 83363842, 84804099, 83365890, 84675585, 83363844, 84674561, 83363846, 84675075, 83623936, 84674050, 83624960, 83628032, 83629056, 83629058, 83623940, 83887104, 83888128, 83889152, 83890176, 83886082, 83887106, 83888130, 83890178, 83891202, 83892226, 83889156, 83891204, 83892228, 83886086, 83887110, 83888134, 83889158, 83890182, 83891206, 83891208, 83890184, 83892232, 84673024, 122161667, 82837504, 83624962, 84676097, 69994498, 83886080, 82838528, 82839554, 83628034, 83364864, 83890180, 83887108, 103547392, 103548416, 103549440 };
+             CommandsHandler.lastIndex = CommandsHandler.lastIndex + 1;
+             int id = pos[CommandsHandler.lastIndex];
+             client.Character.Teleport(id, client.Character.Record.CellId);*/
+        }
         #endregion
         [InGameCommand("guild",ServerRoleEnum.PLAYER)]
         public static void CreateGuildCommand(string value, WorldClient client)
         {
-            client.Send(new GuildCreationStartedMessage());
+            if(!client.Character.HasGuild)
+                client.Send(new GuildCreationStartedMessage());
+            else
+                client.Send(new GuildCreationResultMessage((sbyte)GuildCreationResultEnum.GUILD_CREATE_ERROR_ALREADY_IN_GUILD));
+        }
+        [InGameCommand("alliance", ServerRoleEnum.PLAYER)]
+        public static void CreateAllianceCommand(string value, WorldClient client)
+        {
+            if(!client.Character.HasGuild)
+                client.Send(new AllianceCreationResultMessage((sbyte)GuildCreationResultEnum.GUILD_CREATE_ERROR_REQUIREMENT_UNMET));
+            if (!client.Character.HasAlliance)
+                client.Send(new AllianceCreationStartedMessage());
+            else if (GuildProvider.GetLeader(client.Character.GuildId).CharacterId != client.Character.Id)
+                client.Send(new AllianceCreationResultMessage((sbyte)GuildCreationResultEnum.GUILD_CREATE_ERROR_REQUIREMENT_UNMET));
+            else if(client.Character.HasAlliance)
+                client.Send(new AllianceCreationResultMessage((sbyte)GuildCreationResultEnum.GUILD_CREATE_ERROR_ALREADY_IN_GUILD));
         }
     }
 }

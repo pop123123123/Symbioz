@@ -1,6 +1,9 @@
 ﻿using Symbioz.DofusProtocol.Messages;
 using Symbioz.Enums;
+using Symbioz.Network.Servers;
 using Symbioz.PathProvider;
+using Symbioz.Providers.SpellEffectsProvider.Buffs;
+using Symbioz.World.Models;
 using Symbioz.World.Models.Fights.Fighters;
 using Symbioz.World.PathProvider;
 using Symbioz.World.Records.Spells;
@@ -33,22 +36,69 @@ namespace Symbioz.Providers.SpellEffectsProvider.Effects
                 }
             }
         }
+        [EffectHandler(EffectsEnum.Eff_1099)] // Rembobinage
+        public static void LastTurnPositionMove(Fighter fighter, SpellLevelRecord level, ExtendedSpellEffect effect, List<Fighter> affecteds, short castcellid)
+        {
+            foreach (Fighter affected in affecteds)
+            {
+                if (affected.LastTurnPosition == 0)
+                    continue;
+                if (fighter.Fight.GetFighter(affected.LastTurnPosition) != null)
+                {
+                    Fighter other = fighter.Fight.GetFighter(affected.LastTurnPosition);
+                    SwitchPosition(other, null, effect, new List<Fighter> { affected }, castcellid);
+                }
+                else
+                {
+                    affected.Teleport(affected.LastTurnPosition, false);
+                }
+            }
+        }
+        [EffectHandler(EffectsEnum.Eff_1100)] // Gelure/Fuite
+        public static void LastPositionMove(Fighter fighter, SpellLevelRecord level, ExtendedSpellEffect effect, List<Fighter> affecteds, short castcellid)
+        {
+            foreach (Fighter affected in affecteds)
+            {
+                if (affected.LastPosition.Count <= 0)
+                    continue;
+                if (fighter.Fight.GetFighter(affected.LastPosition.Last()) != null)
+                {
+                    Fighter other = fighter.Fight.GetFighter(affected.LastPosition.Last());
+                    SwitchPosition(other, null, effect, new List<Fighter> { affected }, castcellid);
+                }
+                else
+                {
+                    affected.Teleport(affected.LastPosition.Last(),false);
+                }
+                affected.LastPosition.Remove(affected.LastPosition.Last());
+            }
+        }
         [EffectHandler(EffectsEnum.Eff_1104)] // Xelor
         public static void SymetryToTargetMove(Fighter fighter, SpellLevelRecord level, ExtendedSpellEffect effect, List<Fighter> affecteds, short castcellid)
         {
             var symetrySource = fighter.Fight.GetFighter(castcellid);
             if (symetrySource == null)
                 return;
-            var direction = ShapesProvider.GetDirectionFromTwoCells(fighter.CellId, castcellid);
-            var line = ShapesProvider.GetLineFromDirection(fighter.CellId, (short)(PathHelper.GetDistanceBetween(fighter.CellId, castcellid) * 2), direction);
-            short destinationCell = line.Last();
-            if (fighter.Fight.IsObstacle(destinationCell))
+            var target = fighter.Fight.GetFighter(castcellid);
+            var direction = ShapesProvider.GetDirectionFromTwoCells(target.CellId, fighter.CellId);
+            short destinationCell = (short)((target.CellId * 2) - fighter.CellId);
+            if (ShapesProvider.IsDiagonalDirection(direction))
             {
-                var target = fighter.Fight.GetFighter(destinationCell);
-                if (target != null)
-                {
-                    SwitchPosition(fighter, null, null, new List<Fighter>() { target }, destinationCell);
+                if (PathHelper.GetDistanceBetween(fighter.CellId, target.CellId) % 2 != 0) {
+                    destinationCell = (short)((target.CellId * 2) - fighter.CellId - 1);
                 }
+                else
+                    destinationCell = (short)((target.CellId * 2) - fighter.CellId);
+            }
+            else if (PathHelper.GetDistanceBetween(fighter.CellId, castcellid) % 2 != 0)
+            {
+                destinationCell = (short)((target.CellId * 2) - fighter.CellId -1);
+            }
+            if (fighter.Fight.IsObstacle(destinationCell) && fighter.Fight.GetFighter(destinationCell) == null)
+                return;
+            if (fighter.Fight.GetFighter(destinationCell) != null)
+            {
+                SwitchPosition(fighter, null, null, new List<Fighter>() { fighter.Fight.GetFighter(destinationCell) }, destinationCell);
             }
             else
             {
@@ -61,25 +111,23 @@ namespace Symbioz.Providers.SpellEffectsProvider.Effects
             foreach (Fighter affected in affecteds)
             {
                 var direction = ShapesProvider.GetDirectionFromTwoCells(castcellid, fighter.CellId);
-                List<short> line = new List<short>();
+                short destinationCell = (short)((fighter.CellId * 2) - castcellid);
                 if (ShapesProvider.IsDiagonalDirection(direction))
                 {
-                   // enfait il faut faire un algorythme de symetrie
+                    if (PathHelper.GetDistanceBetween(fighter.CellId, affected.CellId)%2 != 0)
+                        destinationCell = (short)((fighter.CellId * 2) - castcellid + 1);
+                    else
+                        destinationCell = (short)((fighter.CellId * 2) - castcellid);
                 }
-                else
+                else if(PathHelper.GetDistanceBetween(fighter.CellId, affected.CellId) % 2 != 0)
                 {
-                    line = ShapesProvider.GetLineFromDirection(affected.CellId, (short)(PathHelper.GetDistanceBetween(fighter.CellId, affected.CellId) * 2), direction);
+                    destinationCell = (short)((fighter.CellId * 2) - castcellid + 1);
                 }
-                if (line.Count == 0)
+                if (fighter.Fight.IsObstacle(destinationCell) && fighter.Fight.GetFighter(destinationCell) == null)
                     return;
-                short destinationCell = line.Last();
-                if (fighter.Fight.IsObstacle(destinationCell))
+                if (fighter.Fight.GetFighter(destinationCell) != null)
                 {
-                    var target = fighter.Fight.GetFighter(destinationCell);
-                    if (target != null)
-                    {
-                        SwitchPosition(affected, null, null, new List<Fighter>() { target }, destinationCell);
-                    }
+                    SwitchPosition(affected, null, null, new List<Fighter>() { fighter.Fight.GetFighter(destinationCell) }, destinationCell);
                 }
                 else
                 {
@@ -109,11 +157,16 @@ namespace Symbioz.Providers.SpellEffectsProvider.Effects
         [EffectHandler(EffectsEnum.Eff_SwitchPosition)]
         public static void SwitchPosition(Fighter fighter, SpellLevelRecord level, ExtendedSpellEffect effect, List<Fighter> affecteds, short castcellid)
         {
+            bool save = true;
+            if(effect != null && effect.BaseEffect.EffectType == EffectsEnum.Eff_1100)
+            {
+                save = false;
+            }
             var target = affecteds.Find(x => x.CellId == castcellid);
             if (target != null)
             {
-                target.Teleport(fighter.CellId);
-                fighter.Teleport(castcellid);
+                target.Teleport(fighter.CellId,save);
+                fighter.Teleport(castcellid,save);
             }
         }
         [EffectHandler(EffectsEnum.Eff_Teleport)]  //Bond de Iop

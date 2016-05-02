@@ -8,6 +8,7 @@ using Symbioz.ORM;
 using Symbioz.Providers;
 using Symbioz.World.Handlers;
 using Symbioz.World.Models;
+using Symbioz.World.Models.Alliances;
 using Symbioz.World.Models.Exchanges;
 using Symbioz.World.Models.Exchanges.Craft;
 using Symbioz.World.Models.Fights;
@@ -17,6 +18,7 @@ using Symbioz.World.Models.Maps;
 using Symbioz.World.Models.Parties;
 using Symbioz.World.Models.Parties.Dungeon;
 using Symbioz.World.Records;
+using Symbioz.World.Records.Alliances;
 using Symbioz.World.Records.Companions;
 using Symbioz.World.Records.Guilds;
 using Symbioz.World.Records.Maps;
@@ -69,6 +71,7 @@ namespace Symbioz.World.Models
 
         public bool SearchingArena { get { return ArenaProvider.Instance.IsSearching(Client); } }
         public int GuildId { get { return CharacterGuildRecord.GetCharacterGuild(Id).GuildId; } }
+        public int AllianceId { get { return GuildAllianceRecord.GetCharacterAlliance(GuildId).AllianceId; } }
 
         public CharacterFighter FighterInstance { get; set; }
         public bool CancelMonsterAgression = false;
@@ -85,7 +88,6 @@ namespace Symbioz.World.Models
         }
 
         public PlayerStatus PlayerStatus;
-        public string AFKMessage;
 
         public Character(CharacterRecord record, WorldClient client)
         {
@@ -97,7 +99,6 @@ namespace Symbioz.World.Models
             this.Inventory = new Inventory(this);
 
             this.PlayerStatus = new PlayerStatus((sbyte)PlayerStatusEnum.PLAYER_STATUS_AVAILABLE);
-            this.AFKMessage = null;
         }
         public void OnConnectedGuildInformations()
         {
@@ -105,6 +106,15 @@ namespace Symbioz.World.Models
             {
                 Client.Send(new GuildMembershipMessage(this.GetGuild().GetGuildInformations(), CharacterGuildRecord.GetCharacterGuild(this.Id).Rights, true));
                 this.HumanOptions.Add(new HumanOptionGuild(this.GetGuild().GetGuildInformations()));
+                Client.Character.RefreshOnMapInstance();
+            }
+        }
+        public void OnConnectedAllianceInformations()
+        {
+            if (HasAlliance)
+            {
+                Client.Send(new AllianceMembershipMessage(GetAlliance().GetAllianceInformations(), true));
+                this.HumanOptions.Add(new HumanOptionAlliance(GetAlliance().GetAllianceInformations(),(sbyte)0));
                 Client.Character.RefreshOnMapInstance();
             }
         }
@@ -321,6 +331,23 @@ namespace Symbioz.World.Models
                 LearnJob(job.Id);
             }
         }
+        public void LearnAllEmotes()
+        {
+            foreach(EmoteRecord emote in EmoteRecord.Emotes)
+            {
+                if(ConfigurationManager.Instance.UnauthorizedCreationGiveEmotes.Contains(emote.Id) == false)
+                {
+                    LearnEmote((byte)(emote.Id));
+                }
+            }
+        }
+        public void ForgetAllEmotes()
+        {
+            foreach (var emote in EmoteRecord.Emotes)
+            {
+                ForgetEmote(emote.Id);
+            }
+        }
         public void RefreshJobs()
         {
             var recordDatas = CharacterJobRecord.GetCharacterJobsDatas(Id);
@@ -530,6 +557,7 @@ namespace Symbioz.World.Models
                 Reply("Vous connaissez déja cette émote (" + template.Name + ").");
                 return false;
             }
+            Logger.Log(id);
         }
         public void ForgetEmote(byte id)
         {
@@ -750,6 +778,24 @@ namespace Symbioz.World.Models
             {
                 Client.Send(new GuildJoinedMessage(GuildRecord.GetGuild(GuildId).GetGuildInformations(), CharacterGuildRecord.GetCharacterGuild(Id).Rights, false));
                 HumanOptions.Add(new HumanOptionGuild(GetGuild().GetGuildInformations()));
+            }
+        }
+
+        public AllianceRecord GetAlliance()
+        {
+            return HasAlliance ? AllianceRecord.GetAlliance(AllianceId) : null;
+        }
+
+        public bool HasAlliance {
+            get
+            {
+                if (HasGuild)
+                {
+                    if (GuildAllianceRecord.GuildsAlliances.Find(x => x.GuildId == GetGuild().Id) != null){
+                        return true;
+                    }
+                }
+                return false;
             }
         }
     }
