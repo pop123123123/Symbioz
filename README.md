@@ -9,7 +9,7 @@ Just modify the config.xml with notepad and set the connection host value to: 12
 
 
 #Some Pictures
-
+![alt tag](http://puu.sh/oFSe3/a5aeb61441.jpg) (Working on Symbioz 2.34)
 ![alt tag](http://image.noelshack.com/fichiers/2016/15/1460897223-dungeonpartyfinder.png)
 ![alt tag](http://image.noelshack.com/fichiers/2016/15/1460897227-eliotropes.png)
 
