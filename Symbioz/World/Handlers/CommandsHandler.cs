@@ -1,4 +1,5 @@
-﻿using Symbioz.Auth;
+﻿using Shader.DofusProtocol.Enums.HomeMade;
+using Symbioz.Auth;
 using Symbioz.Auth.Handlers;
 using Symbioz.Auth.Models;
 using Symbioz.Auth.Records;
@@ -17,6 +18,7 @@ using Symbioz.World.Models.Guilds;
 using Symbioz.World.PathProvider;
 using Symbioz.World.Records;
 using Symbioz.World.Records.Guilds;
+using Symbioz.World.Records.Maps;
 using Symbioz.World.Records.Monsters;
 using Symbioz.World.Records.Spells;
 using System;
@@ -579,6 +581,35 @@ namespace Symbioz.World.Handlers
                 client.Send(new AllianceCreationResultMessage((sbyte)GuildCreationResultEnum.GUILD_CREATE_ERROR_REQUIREMENT_UNMET));
             else if(client.Character.HasAlliance)
                 client.Send(new AllianceCreationResultMessage((sbyte)GuildCreationResultEnum.GUILD_CREATE_ERROR_ALREADY_IN_GUILD));
+        }
+        [InGameCommand("addtrigger", ServerRoleEnum.ADMINISTRATOR)]
+        public static void CreateTriggerCommand(string value, WorldClient client)
+        {
+            List<MapTriggerRecord> maptriggers = MapTriggerRecord.GetMapTriggerByMap(client.Character.Record.MapId);
+            for(int i=0; i<maptriggers.Count(); i++)
+            {
+                if(maptriggers[i].CellId == client.Character.Record.CellId)
+                {
+                    client.Character.Reply("Trigger Allready exist");
+                    return;
+                }
+            }
+            string[] valuesplit = value.Split(' ');
+            string type = valuesplit[0].ToLower();
+            MapTriggerRecord trigger;
+            if (type == "teleport")
+            {
+                int TargetMap = Int32.Parse(valuesplit[1]);
+                int TargetCell = Int32.Parse(valuesplit[2]);
+                trigger = new MapTriggerRecord(MapTriggerRecord.PopNextId(), client.Character.Record.MapId, client.Character.Record.CellId, (int)MapTriggersEnum.TELEPORT, TargetMap, TargetCell);
+            }
+            else
+            {
+                trigger = new MapTriggerRecord(MapTriggerRecord.PopNextId(), client.Character.Record.MapId, client.Character.Record.CellId, 0, 0, 0);
+            }
+            trigger.AddElement();
+            client.Character.Reply("Trigger Added");
+            return;
         }
     }
 }

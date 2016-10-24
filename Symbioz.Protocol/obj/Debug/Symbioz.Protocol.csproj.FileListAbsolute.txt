@@ -23,3 +23,8 @@ C:\Users\Skinz\Desktop\SymbiozRepo\Symbioz.Protocol\bin\Debug\Shader.Protocol.pd
 C:\Users\Skinz\Desktop\SymbiozRepo\Symbioz.Protocol\obj\Debug\Symbioz.Protocol.csprojResolveAssemblyReference.cache
 C:\Users\Skinz\Desktop\SymbiozRepo\Symbioz.Protocol\obj\Debug\Shader.Protocol.dll
 C:\Users\Skinz\Desktop\SymbiozRepo\Symbioz.Protocol\obj\Debug\Shader.Protocol.pdb
+D:\Projets\Symbioz\Symbioz.Protocol\bin\Debug\Shader.Protocol.dll
+D:\Projets\Symbioz\Symbioz.Protocol\bin\Debug\Shader.Protocol.pdb
+D:\Projets\Symbioz\Symbioz.Protocol\obj\Debug\Symbioz.Protocol.csprojResolveAssemblyReference.cache
+D:\Projets\Symbioz\Symbioz.Protocol\obj\Debug\Shader.Protocol.dll
+D:\Projets\Symbioz\Symbioz.Protocol\obj\Debug\Shader.Protocol.pdb

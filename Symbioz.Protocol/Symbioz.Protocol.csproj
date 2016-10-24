@@ -163,6 +163,7 @@
     <Compile Include="Enums\HomeMade\ItemSuperTypeEnum.cs" />
     <Compile Include="Enums\HomeMade\ItemTypeEnum.cs" />
     <Compile Include="Enums\HomeMade\MapNeighbour.cs" />
+    <Compile Include="Enums\HomeMade\MapTriggersEnum.cs" />
     <Compile Include="Enums\HomeMade\MountStableEnum.cs" />
     <Compile Include="Enums\HomeMade\NotificationEnum.cs" />
     <Compile Include="Enums\HomeMade\NpcActionTypeEnum.cs" />

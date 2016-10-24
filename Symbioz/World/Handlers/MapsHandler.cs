@@ -15,6 +15,7 @@ using Symbioz.Core;
 using Symbioz.Provider;
 using Symbioz.World.Records.Monsters;
 using Symbioz.World.Records.Maps;
+using Shader.DofusProtocol.Enums.HomeMade;
 
 namespace Symbioz.World.Handlers
 {
@@ -78,6 +79,17 @@ namespace Symbioz.World.Handlers
         public static void HandleMapMovementConfirm(GameMapMovementConfirmMessage message, WorldClient client)
         {
             client.Character.Record.CellId = client.Character.MovedCell;
+            List<MapTriggerRecord> triggers = MapTriggerRecord.GetMapTriggerByMap(client.Character.Record.MapId);
+            for(int i=0;i<triggers.Count(); i++)
+            {
+                if (triggers[i].CellId == client.Character.MovedCell)
+                {
+                    if ((MapTriggersEnum)triggers[i].TriggerType == MapTriggersEnum.TELEPORT)
+                    {
+                        client.Character.Teleport(triggers[i].TargetMapId, (short)triggers[i].TargetCellId);
+                    }
+                }
+            } 
             client.Character.MovedCell = 0;
         }
         [MessageHandler]

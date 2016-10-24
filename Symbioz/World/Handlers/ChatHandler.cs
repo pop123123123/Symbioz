@@ -80,10 +80,10 @@ namespace Symbioz.World.Handlers
                 if(target.Character.PlayerStatus.statusId == (sbyte)PlayerStatusEnum.PLAYER_STATUS_AFK)
                 {
                     client.Character.ReplyImportant(target.Character.Record.Name + " est asbent");
-                    if(target.Character.AFKMessage != null)
+                    /*if(target.Character.AFKMessage != null)
                     {
                         client.Send(new ChatServerCopyMessage((sbyte)ChatActivableChannelsEnum.PSEUDO_CHANNEL_PRIVATE, target.Character.AFKMessage, 1, client.Character.Record.Name, (uint)target.Character.Record.Id, target.Character.Record.Name));
-                    }
+                    }*/
                 }
             }
             else

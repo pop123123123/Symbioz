@@ -333,13 +333,13 @@ namespace Symbioz.World.Models
         }
         public void LearnAllEmotes()
         {
-            foreach(EmoteRecord emote in EmoteRecord.Emotes)
+            /*foreach(EmoteRecord emote in EmoteRecord.Emotes)
             {
                 if(ConfigurationManager.Instance.UnauthorizedCreationGiveEmotes.Contains(emote.Id) == false)
                 {
                     LearnEmote((byte)(emote.Id));
                 }
-            }
+            }*/
         }
         public void ForgetAllEmotes()
         {
