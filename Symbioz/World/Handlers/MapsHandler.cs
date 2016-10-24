@@ -15,6 +15,7 @@ using Symbioz.Core;
 using Symbioz.Provider;
 using Symbioz.World.Records.Monsters;
 using Symbioz.World.Records.Maps;
+using Shader.DofusProtocol.Enums.HomeMade;
 
 namespace Symbioz.World.Handlers
 {
@@ -83,9 +84,10 @@ namespace Symbioz.World.Handlers
             {
                 if (triggers[i].CellId == client.Character.MovedCell)
                 {
-                    client.Character.Reply("Trigger Found");
-                    client.Character.Teleport(triggers[i].TargetMapId, (short)triggers[i].TargetCellId);
-                    
+                    if ((MapTriggersEnum)triggers[i].TriggerType == MapTriggersEnum.TELEPORT)
+                    {
+                        client.Character.Teleport(triggers[i].TargetMapId, (short)triggers[i].TargetCellId);
+                    }
                 }
             } 
             client.Character.MovedCell = 0;

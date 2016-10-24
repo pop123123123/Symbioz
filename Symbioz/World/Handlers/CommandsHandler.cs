@@ -1,4 +1,5 @@
-﻿using Symbioz.Auth;
+﻿using Shader.DofusProtocol.Enums.HomeMade;
+using Symbioz.Auth;
 using Symbioz.Auth.Handlers;
 using Symbioz.Auth.Models;
 using Symbioz.Auth.Records;
@@ -594,9 +595,18 @@ namespace Symbioz.World.Handlers
                 }
             }
             string[] valuesplit = value.Split(' ');
-            int TargetMap = Int32.Parse(valuesplit[0]);
-            int TargetCell = Int32.Parse(valuesplit[1]);
-            MapTriggerRecord trigger = new MapTriggerRecord(MapTriggerRecord.PopNextId(), client.Character.Record.MapId, client.Character.Record.CellId, TargetMap, TargetCell);
+            string type = valuesplit[0].ToLower();
+            MapTriggerRecord trigger;
+            if (type == "teleport")
+            {
+                int TargetMap = Int32.Parse(valuesplit[1]);
+                int TargetCell = Int32.Parse(valuesplit[2]);
+                trigger = new MapTriggerRecord(MapTriggerRecord.PopNextId(), client.Character.Record.MapId, client.Character.Record.CellId, (int)MapTriggersEnum.TELEPORT, TargetMap, TargetCell);
+            }
+            else
+            {
+                trigger = new MapTriggerRecord(MapTriggerRecord.PopNextId(), client.Character.Record.MapId, client.Character.Record.CellId, 0, 0, 0);
+            }
             trigger.AddElement();
             client.Character.Reply("Trigger Added");
             return;

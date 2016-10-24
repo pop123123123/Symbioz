@@ -18,14 +18,16 @@ namespace Symbioz.World.Records.Maps
         public int Id;
         public int MapId;
         public int CellId;
+        public int TriggerType;
         public int TargetMapId;
         public int TargetCellId;
 
-        public MapTriggerRecord(int id, int mapid, int cellid, int targetmapid, int targetcellid)
+        public MapTriggerRecord(int id, int mapid, int cellid, int triggertype, int targetmapid, int targetcellid)
         {
             this.Id = id;
             this.MapId = mapid;
             this.CellId = cellid;
+            this.TriggerType = triggertype;
             this.TargetMapId = targetmapid;
             this.TargetCellId = targetcellid;
         }
