@@ -18,6 +18,7 @@ namespace Symbioz.World.Records.Alliances
 
         public static List<GuildAllianceRecord> GuildsAlliances = new List<GuildAllianceRecord>();
 
+        [Primary]
         public int GuildId;
         public int AllianceId;
 

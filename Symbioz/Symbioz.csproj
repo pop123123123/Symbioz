@@ -133,6 +133,8 @@
     <Compile Include="Providers\Conditions\VitalityCondition.cs" />
     <Compile Include="Providers\Conditions\WisdomCondition.cs" />
     <Compile Include="Providers\CustomObjectUseHandler.cs" />
+    <Compile Include="World\Handlers\AllianceHandler.cs" />
+    <Compile Include="World\Models\Alliances\AllianceProvider.cs" />
     <Compile Include="World\Models\Parties\Dungeon\DungeonPartyProvider.cs" />
     <Compile Include="Providers\FightResults\Exp\ExperienceFormulas.cs" />
     <Compile Include="Providers\FightResults\Exp\GroupMemberData.cs" />
@@ -294,6 +296,8 @@
     <Compile Include="World\PathProvider\PathHelper.cs" />
     <Compile Include="World\PathProvider\ShapeAttribute.cs" />
     <Compile Include="World\PathProvider\ShapesProvider.cs" />
+    <Compile Include="World\Records\Alliances\AllianceRecord.cs" />
+    <Compile Include="World\Records\Alliances\GuildAllianceRecord.cs" />
     <Compile Include="World\Records\Character\CharacteristicRecord.cs" />
     <Compile Include="World\Records\Character\EmoteRecord.cs" />
     <Compile Include="World\Records\Character\GeneralShortcutRecord.cs" />
@@ -315,6 +319,7 @@
     <Compile Include="World\Records\Items\WeaponRecord.cs" />
     <Compile Include="World\Records\Maps\MapPositionRecord.cs" />
     <Compile Include="World\Records\Maps\MapScrollActionRecord.cs" />
+    <Compile Include="World\Records\Maps\MapTriggerRecord.cs" />
     <Compile Include="World\Records\Monsters\DungeonRecord.cs" />
     <Compile Include="World\Records\Spells\BombWallRecord.cs" />
     <Compile Include="World\Records\Spells\CharacterSpellRecord.cs" />
