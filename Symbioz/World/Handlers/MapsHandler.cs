@@ -78,6 +78,16 @@ namespace Symbioz.World.Handlers
         public static void HandleMapMovementConfirm(GameMapMovementConfirmMessage message, WorldClient client)
         {
             client.Character.Record.CellId = client.Character.MovedCell;
+            List<MapTriggerRecord> triggers = MapTriggerRecord.GetMapTriggerByMap(client.Character.Record.MapId);
+            for(int i=0;i<triggers.Count(); i++)
+            {
+                if (triggers[i].CellId == client.Character.MovedCell)
+                {
+                    client.Character.Reply("Trigger Found");
+                    client.Character.Teleport(triggers[i].TargetMapId, (short)triggers[i].TargetCellId);
+                    
+                }
+            } 
             client.Character.MovedCell = 0;
         }
         [MessageHandler]
