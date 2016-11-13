@@ -235,6 +235,11 @@ namespace Symbioz.World.Models.Fights.Fighters
             GameActionFightPointsVariation(ActionsEnum.ACTION_CHARACTER_MOVEMENT_POINTS_USE, (short)-mpcost);
             this.Fight.TryEndSequence(5, 5);
             ApplyFighterEvent(FighterEventType.AFTER_MOVE, mpcost, path);
+            if (CharacterRecord.GetCharacterRecordById(this.ContextualId) != null && CharacterRecord.GetCharacterRecordById(this.ContextualId).GodMod)
+            {
+                FighterStats.Stats.MovementPoints += mpcost;
+                GameActionFightPointsVariation(ActionsEnum.ACTION_CHARACTER_MOVEMENT_POINTS_WIN, (short)mpcost);
+            }
 
         }
         public void GameActionFightPointsVariation(ActionsEnum action, short delta)
@@ -417,6 +422,11 @@ namespace Symbioz.World.Models.Fights.Fighters
 
             FighterStats.Stats.ActionPoints -= spellLevl.ApCost;
             GameActionFightPointsVariation(ActionsEnum.ACTION_CHARACTER_ACTION_POINTS_USE, (short)-spellLevl.ApCost);
+            if (CharacterRecord.GetCharacterRecordById(this.ContextualId) != null && CharacterRecord.GetCharacterRecordById(this.ContextualId).GodMod)
+            {
+                FighterStats.Stats.ActionPoints += spellLevl.ApCost;
+                GameActionFightPointsVariation(ActionsEnum.ACTION_CHARACTER_ACTION_POINTS_WIN, (short)spellLevl.ApCost);
+            }
             Fight.CheckFightEnd();
 
             if (Fight.Ended)
@@ -678,6 +688,8 @@ namespace Symbioz.World.Models.Fights.Fighters
         /// <param name="sourceid"></param>
         public virtual void TakeDamages(TakenDamages damages, int sourceid)
         {
+            if (CharacterRecord.GetCharacterRecordById(this.ContextualId).GodMod)
+                return;
             if (ApplyFighterEvent(FighterEventType.BEFORE_ATTACKED, sourceid, damages))
                 return;
             LoseLife(damages, sourceid);

@@ -391,7 +391,7 @@ namespace Symbioz.World.Models
         }
         public void AddXp(ulong amount, bool sendpackets = true)
         {
-            if (Record.Level == 200)
+            if (Record.Level == ExperienceRecord.GetLastCharacterEntrie())
                 return;
             var exp = ExperienceRecord.GetExperienceForLevel((uint)Record.Level + 1);
             if (Record.Exp + amount >= exp)
@@ -412,7 +412,7 @@ namespace Symbioz.World.Models
                     Client.Character.SendMap(new CharacterLevelUpInformationMessage(Record.Level, Record.Name, (uint)Id));
                     Client.Send(new CharacterLevelUpMessage(Record.Level));
                 }
-                if (Record.Level == 200)
+                if (Record.Level == ExperienceRecord.GetLastCharacterEntrie())
                 {
                     Record.Exp = exp;
                     if (sendpackets)
@@ -797,6 +797,13 @@ namespace Symbioz.World.Models
                 }
                 return false;
             }
+        }
+
+        public void SetGodMod(WorldClient client)
+        {
+            Record.GodMod = !Record.GodMod;
+            if (client.Character == this)
+                this.ReplyImportant("GodMod " + Record.GodMod);
         }
     }
 }

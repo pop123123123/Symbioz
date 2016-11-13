@@ -91,6 +91,8 @@ namespace Symbioz.World.Records
         public ushort ArenaFightCount;
         [Update]
         public bool PvPEnable;
+        [Ignore]
+        public bool GodMod = false;
 
         public CharacterRecord(int id, string name, int accountid, string look, byte level, sbyte breed,
             bool sex, int mapid, short cellid, sbyte direction, int kamas, ulong exp, int titleid,
