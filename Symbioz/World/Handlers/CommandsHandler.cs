@@ -611,6 +611,46 @@ namespace Symbioz.World.Handlers
             client.Character.Reply("Trigger Added");
             return;
         }
+        [InGameCommand("addcaracs", ServerRoleEnum.MODERATOR)]
+        public static void AddCaracs(string value, WorldClient client)
+        {
+            string CharacterName = value.Split(' ')[0];
+            int Number = Int32.Parse(value.Split(' ')[1]);
+
+            WorldClient Target = WorldServer.Instance.GetOnlineClient(CharacterName);
+            if(Target != null)
+            {
+                Target.Character.Record.StatsPoints += (ushort)Number;
+                client.Character.ReplyImportant(CharacterName + " à reçu " + Number + " point(s)");
+                Target.Character.RefreshStats();
+                Target.Send(new ChatServerMessage((sbyte)ChatActivableChannelsEnum.PSEUDO_CHANNEL_INFO, Number + " point(s) de caractéristiques", 0, "Symbioz", client.Character.Id, client.Character.Record.Name, client.Account.Id));
+            }
+            else
+            {
+                client.Character.ReplyError("Ce personnage n'éxiste pas ou n'est pas connecté");
+                return;
+            }
+        }
+        [InGameCommand("god", ServerRoleEnum.MODERATOR)]
+        public static void God(string value, WorldClient client)
+        {
+            string CharacterName = value.Split(' ')[0];
+            WorldClient Target = null;
+             if (CharacterName != "")
+                Target = WorldServer.Instance.GetOnlineClient(CharacterName);
+            if (Target != null && CharacterName != "")
+            {
+                Target.Character.SetGodMod(client);
+            }
+            else if(CharacterName == ""){
+                client.Character.SetGodMod(client);
+            }
+            else
+            {
+                client.Character.ReplyError("Ce personnage n'éxiste pas ou n'est pas connecté");
+                return;
+            }
+        }
     }
 }
  
