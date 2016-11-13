@@ -632,6 +632,19 @@ namespace Symbioz.World.PathProvider
         {
             return new List<short>() { startcell };
         }
+        [Shape('O')]
+        public static List<short> GetOShape(short startcell, short basecell, short radius)
+        {
+            List<short> results = new List<short>();
+            /*System.Console.WriteLine(GetFrontDownLeftCells(startcell, 25)[5]);
+            results.Add(GetFrontDownLeftCells(startcell, 5)[0]);
+            System.Console.WriteLine(results[0]);
+            //results.Add(GetFrontDownRightCells(startcell, 1)[radius]);
+            //results.Add(GetFrontUpLeftCells(startcell, 1)[radius]);
+            //results.Add(GetFrontUpRightCells(startcell, 1)[radius]);*/
+            results.Add(startcell);
+            return results;
+        }
         #endregion
         #region MapBorder
         public static List<short> GetMapBorder(MapScrollType bordertype)

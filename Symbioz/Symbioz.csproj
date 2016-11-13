@@ -118,12 +118,14 @@
     <Compile Include="Providers\ArenaProvider.cs" />
     <Compile Include="Providers\Conditions\ActionPointsCondition.cs" />
     <Compile Include="Providers\Conditions\AgilityCondition.cs" />
+    <Compile Include="Providers\Conditions\AlliancesCondition.cs" />
     <Compile Include="Providers\Conditions\BreedCondition.cs" />
     <Compile Include="Providers\Conditions\ChanceCondition.cs" />
     <Compile Include="Providers\Conditions\Condition.cs" />
     <Compile Include="Providers\Conditions\ConditionAttribute.cs" />
     <Compile Include="Providers\Conditions\ConditionProvider.cs" />
     <Compile Include="Providers\Conditions\GradeCondition.cs" />
+    <Compile Include="Providers\Conditions\GuildsCondition.cs" />
     <Compile Include="Providers\Conditions\HasItemCondition.cs" />
     <Compile Include="Providers\Conditions\IntelligenceCondition.cs" />
     <Compile Include="Providers\Conditions\LevelCondition.cs" />
