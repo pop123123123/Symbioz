@@ -23,3 +23,13 @@ C:\Users\Skinz\Desktop\SymbiozRepo\Symbioz.Helper\bin\Debug\Shader.Helper.pdb
 C:\Users\Skinz\Desktop\SymbiozRepo\Symbioz.Helper\obj\Debug\Symbioz.Helper.csprojResolveAssemblyReference.cache
 C:\Users\Skinz\Desktop\SymbiozRepo\Symbioz.Helper\obj\Debug\Shader.Helper.dll
 C:\Users\Skinz\Desktop\SymbiozRepo\Symbioz.Helper\obj\Debug\Shader.Helper.pdb
+C:\Users\louis\Desktop\Symbioz-master\Symbioz.Helper\bin\Debug\Shader.Helper.dll
+C:\Users\louis\Desktop\Symbioz-master\Symbioz.Helper\bin\Debug\Shader.Helper.pdb
+C:\Users\louis\Desktop\Symbioz-master\Symbioz.Helper\obj\Debug\Symbioz.Helper.csprojResolveAssemblyReference.cache
+C:\Users\louis\Desktop\Symbioz-master\Symbioz.Helper\obj\Debug\Shader.Helper.dll
+C:\Users\louis\Desktop\Symbioz-master\Symbioz.Helper\obj\Debug\Shader.Helper.pdb
+D:\Documents\dofus emulation\Symbioz-master\Symbioz.Helper\bin\Debug\Shader.Helper.dll
+D:\Documents\dofus emulation\Symbioz-master\Symbioz.Helper\bin\Debug\Shader.Helper.pdb
+D:\Documents\dofus emulation\Symbioz-master\Symbioz.Helper\obj\Debug\Symbioz.Helper.csprojResolveAssemblyReference.cache
+D:\Documents\dofus emulation\Symbioz-master\Symbioz.Helper\obj\Debug\Shader.Helper.dll
+D:\Documents\dofus emulation\Symbioz-master\Symbioz.Helper\obj\Debug\Shader.Helper.pdb

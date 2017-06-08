@@ -66,6 +66,10 @@ namespace Symbioz.World.Models.Fights.Fighters
         {
             Cooldowns.Add(new GameFightSpellCooldown(spellid, cooldown));
         }
+        public override byte GetLevel()
+        {
+            return (byte) Template.GetGrade(SpawnRecord.ActualGrade).Level;
+        }
         public bool HaveCooldown(short spellid)
         {
             return Cooldowns.Find(x => x.spellId == spellid) != null;

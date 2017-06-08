@@ -98,47 +98,30 @@ namespace Symbioz.World.PathProvider
         public static List<short> GetFrontDownLeftCells(short startcell, short movedcellamout)
         {
             var list = new List<short>();
-            var checker = Math.Truncate((decimal)startcell / 14); // on regarde si la rangée de la cell est paire ou non
-            var iee = Math.IEEERemainder((short)checker, 2); // on regarde si il y a un reste au nombre
-            if (iee == 0) // si le nombre est pair , alors.. je m'y perd..edit : ok trouvé x)
+            short currentCell = startcell;
+            for (int i = 0; i < movedcellamout; i++)
             {
-                list.Add((short)(startcell + 13));
-                bool check = true;
-                for (int i = 0; i < movedcellamout; i++)
+                if ((currentCell / 14)%2 == 0)//Si rangée paire, 13, sinon 14
                 {
-                    if (check == true)
-                    {
-                        list.Add((short)(list[i] + 14));
-                        check = false;
-                    }
-                    else
-                    {
-                        list.Add((short)(list[i] + 13));
-                        check = true;
-                    }
+                    currentCell += 13;
                 }
+                else
+                {
+                    currentCell += 14;
+                }
+                list.Add(currentCell);
             }
-            else // si il est impaire ,alors
+            foreach (var cell in list)
             {
-                list.Add((short)(startcell + 14 * 1));
-                bool check = true;
-                for (int i = 0; i < movedcellamout; i++)
-                {
-                    if (check == true)
-                    {
-                        list.Add((short)(list[i] + 13));
-                        check = false;
-                    }
-                    else
-                    {
-                        list.Add((short)(list[i] + 14));
-                        check = true;
-                    }
-                }
+                Logger.Info(cell);
             }
-
-            list.Remove(list.Last());
             Verifiy(list);
+            Logger.Info("Verify");
+            foreach (var cell in list)
+            {
+                Logger.Info(cell);
+            }
+            Logger.Info("Ok");
             return list;
         }
         public static List<short> GetFrontDownRightCells(short startcell, short movedcellamout)

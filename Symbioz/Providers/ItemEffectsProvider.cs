@@ -25,6 +25,7 @@ namespace Symbioz.Provider
             Functions.Add(EffectsEnum.Eff_AddChance, Chance);
             Functions.Add(EffectsEnum.Eff_AddAP_111, Ap);
             Functions.Add(EffectsEnum.Eff_AddMP_128, AddMp);
+            Functions.Add(EffectsEnum.Eff_AddRange, AddRange);
             Functions.Add(EffectsEnum.Eff_AddTitle, Title);
             Functions.Add(EffectsEnum.Eff_AddCriticalHit, CritHit);
             Functions.Add(EffectsEnum.Eff_AddSummonLimit, SummonLimit);
@@ -56,6 +57,13 @@ namespace Symbioz.Provider
             Functions.Add(EffectsEnum.Eff_SubChance, SubChance);
             Functions.Add(EffectsEnum.Eff_SubStrength, SubStrength);
             Functions.Add(EffectsEnum.Eff_410, APReduction);
+            Functions.Add(EffectsEnum.Eff_IncreaseAPAvoid, IncreaseAPAvoid);
+            Functions.Add(EffectsEnum.Eff_AddCriticalDamageBonus, AddCriticalDamageBonus);
+            Functions.Add(EffectsEnum.Eff_SubCriticalDamageReduction, SubCriticalDamageReduction);
+            Functions.Add(EffectsEnum.Eff_AddPushDamageReduction, AddPushDamageReduction);
+            Functions.Add(EffectsEnum.Eff_IncreaseMPAvoid, IncreaseMPAvoid);
+            Functions.Add(EffectsEnum.Eff_AddHealBonus, AddHealBonus);
+            Functions.Add(EffectsEnum.Eff_984, AddHealBonus);
         }
         public static void RemoveEffects(WorldClient client, List<ObjectEffect> effects)
         {
@@ -198,6 +206,34 @@ namespace Symbioz.Provider
         private static void AddMp(WorldClient client, short value)
         {
             client.Character.StatsRecord.MovementPoints += value;
+        }
+        private static void AddPushDamageReduction(WorldClient client, short value)
+        {
+            client.Character.StatsRecord.PushDamageReduction += value;
+        }
+        private static void IncreaseMPAvoid(WorldClient client, short value)
+        {
+            client.Character.StatsRecord.DodgePM += value;
+        }
+        private static void AddRange(WorldClient client, short value)
+        {
+            client.Character.StatsRecord._Range += value;
+        }
+        private static void IncreaseAPAvoid(WorldClient client, short value)
+        {
+            client.Character.StatsRecord.DodgePA += value;
+        }
+        private static void AddCriticalDamageBonus(WorldClient client, short value)
+        {
+            client.Character.StatsRecord.CriticalDamageBonus += value;
+        }
+        private static void SubCriticalDamageReduction(WorldClient client, short value)
+        {
+            client.Character.StatsRecord.CriticalDamageReduction -= value;
+        }
+        private static void AddHealBonus(WorldClient client, short value)
+        {
+            client.Character.StatsRecord.HealBonus += value;
         }
         private static void Ap(WorldClient client, short value)
         {

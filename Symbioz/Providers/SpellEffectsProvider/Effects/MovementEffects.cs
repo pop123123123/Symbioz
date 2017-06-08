@@ -3,6 +3,7 @@ using Symbioz.Enums;
 using Symbioz.Network.Servers;
 using Symbioz.PathProvider;
 using Symbioz.Providers.SpellEffectsProvider.Buffs;
+using Symbioz.World.Models.Fights.Damages;
 using Symbioz.World.Models;
 using Symbioz.World.Models.Fights.Fighters;
 using Symbioz.World.PathProvider;
@@ -246,7 +247,7 @@ namespace Symbioz.Providers.SpellEffectsProvider.Effects
                 }
             }
         }
-        [EffectHandler(EffectsEnum.Eff_PushBack)]
+        [EffectHandler(EffectsEnum.Eff_PushBack)] //Flèche de recul
         public static void PushBack(Fighter fighter, SpellLevelRecord level, ExtendedSpellEffect effect, List<Fighter> affecteds, short castcellid)
         {
             foreach (var target in affecteds)
@@ -266,6 +267,14 @@ namespace Symbioz.Providers.SpellEffectsProvider.Effects
                 if (cells.Count > 0)
                 {
                     target.Slide(fighter.ContextualId, cells);
+                }
+                if (cells.Count < line.Count)
+                {
+                    int cellsDamage = line.Count - cells.Count;
+                    var takenDamages = new TakenDamages((short)(fighter.GetLevel()/2), ElementType.Push);
+                    takenDamages.EvaluateWithResistances(fighter, target, fighter.Fight.PvP);
+                    takenDamages.Delta = (short) ((takenDamages.Delta + 32) * cellsDamage / 4);
+                    target.TakeDamages(takenDamages, fighter.ContextualId);
                 }
             }
 

@@ -37,7 +37,7 @@ namespace Symbioz.World.Models.Fights.Marks
         }
         public void Explode(Fighter fighter)
         {
-            Caster.Fight.TryEndSequence(1, 0);
+            Caster.Fight.TryEndSequence((sbyte)SequenceTypesEnum.SEQUENCE_SPELL, (ushort)ActionsEnum.ACTION_SEQUENCE_END);
             Caster.Fight.TryStartSequence(fighter.ContextualId, 1);
             var spellLevel = SpellLevelRecord.GetLevel((ushort)AssociatedSpellId, AssociatedSpellGrade);
             Caster.Fight.RemoveMarkTrigger(fighter, this);

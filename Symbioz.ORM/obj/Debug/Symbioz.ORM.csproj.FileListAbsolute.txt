@@ -35,3 +35,17 @@ C:\Users\Skinz\Desktop\SymbiozRepo\Symbioz.ORM\bin\Debug\Shader.Helper.pdb
 C:\Users\Skinz\Desktop\SymbiozRepo\Symbioz.ORM\obj\Debug\Symbioz.ORM.csprojResolveAssemblyReference.cache
 C:\Users\Skinz\Desktop\SymbiozRepo\Symbioz.ORM\obj\Debug\Shader.ORM.dll
 C:\Users\Skinz\Desktop\SymbiozRepo\Symbioz.ORM\obj\Debug\Shader.ORM.pdb
+C:\Users\louis\Desktop\Symbioz-master\Symbioz.ORM\bin\Debug\Shader.ORM.dll
+C:\Users\louis\Desktop\Symbioz-master\Symbioz.ORM\bin\Debug\Shader.ORM.pdb
+C:\Users\louis\Desktop\Symbioz-master\Symbioz.ORM\bin\Debug\Shader.Helper.dll
+C:\Users\louis\Desktop\Symbioz-master\Symbioz.ORM\bin\Debug\Shader.Helper.pdb
+C:\Users\louis\Desktop\Symbioz-master\Symbioz.ORM\obj\Debug\Symbioz.ORM.csprojResolveAssemblyReference.cache
+C:\Users\louis\Desktop\Symbioz-master\Symbioz.ORM\obj\Debug\Shader.ORM.dll
+C:\Users\louis\Desktop\Symbioz-master\Symbioz.ORM\obj\Debug\Shader.ORM.pdb
+D:\Documents\dofus emulation\Symbioz-master\Symbioz.ORM\bin\Debug\Shader.ORM.dll
+D:\Documents\dofus emulation\Symbioz-master\Symbioz.ORM\bin\Debug\Shader.ORM.pdb
+D:\Documents\dofus emulation\Symbioz-master\Symbioz.ORM\bin\Debug\Shader.Helper.dll
+D:\Documents\dofus emulation\Symbioz-master\Symbioz.ORM\bin\Debug\Shader.Helper.pdb
+D:\Documents\dofus emulation\Symbioz-master\Symbioz.ORM\obj\Debug\Symbioz.ORM.csprojResolveAssemblyReference.cache
+D:\Documents\dofus emulation\Symbioz-master\Symbioz.ORM\obj\Debug\Shader.ORM.dll
+D:\Documents\dofus emulation\Symbioz-master\Symbioz.ORM\obj\Debug\Shader.ORM.pdb

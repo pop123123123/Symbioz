@@ -63,6 +63,10 @@ namespace Symbioz.World.Models.Fights.Damages
                     elementReduction = (short)(target.FighterStats.Stats.NeutralReduction + (pvp? target.FighterStats.Stats.PvPNeutralReduction : 0));
                     elementResistPercent = target.FighterStats.Stats.NeutralResistPercent + (pvp ? target.FighterStats.Stats.PvPNeutralResistPercent : 0);
                     break;
+                case ElementType.Push:
+                    elementBonus = source.FighterStats.Stats.PushDamageBonus;
+                    elementReduction = (short)(target.FighterStats.Stats.PushDamageReduction/* + (pvp ? target.FighterStats.Stats.PvP : 0)*/);
+                    break;
                 default:
                     break;
             }

@@ -13,13 +13,13 @@
   <StartCellId>300</StartCellId>
   <DutyMapId>99091983</DutyMapId>
   <DutyCellId>300</DutyCellId>
-  <StartKamas>0</StartKamas>
-  <WelcomeMessage>SymbiozEmu version 0,9</WelcomeMessage>
+  <StartKamas>100000000</StartKamas>
+  <WelcomeMessage>Bienvenue sur Sakamodofus</WelcomeMessage>
   <ShowProtocolMessages>True</ShowProtocolMessages>
   <KamasDropRatio>1</KamasDropRatio>
   <ExperienceRatio>1</ExperienceRatio>
   <StartBankKamas>0</StartBankKamas>
-  <Host>127.0.0.1</Host>
+  <Host>192.168.0.10</Host>
   <IsCustomHost>False</IsCustomHost>
   <RealHost />
   <SafeRun>False</SafeRun>

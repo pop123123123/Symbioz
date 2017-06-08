@@ -20,3 +20,13 @@ C:\Users\Skinz\Desktop\SymbiozRepo\Symbioz.SSync\bin\Debug\Layout.Accordion.dll
 C:\Users\Skinz\Desktop\SymbiozRepo\Symbioz.SSync\obj\Debug\Symbioz.SSync.csprojResolveAssemblyReference.cache
 C:\Users\Skinz\Desktop\SymbiozRepo\Symbioz.SSync\obj\Debug\Shader.SSync.dll
 C:\Users\Skinz\Desktop\SymbiozRepo\Symbioz.SSync\obj\Debug\Shader.SSync.pdb
+C:\Users\louis\Desktop\Symbioz-master\Symbioz.SSync\bin\Debug\Shader.SSync.dll
+C:\Users\louis\Desktop\Symbioz-master\Symbioz.SSync\bin\Debug\Shader.SSync.pdb
+C:\Users\louis\Desktop\Symbioz-master\Symbioz.SSync\obj\Debug\Symbioz.SSync.csprojResolveAssemblyReference.cache
+C:\Users\louis\Desktop\Symbioz-master\Symbioz.SSync\obj\Debug\Shader.SSync.dll
+C:\Users\louis\Desktop\Symbioz-master\Symbioz.SSync\obj\Debug\Shader.SSync.pdb
+D:\Documents\dofus emulation\Symbioz-master\Symbioz.SSync\bin\Debug\Shader.SSync.dll
+D:\Documents\dofus emulation\Symbioz-master\Symbioz.SSync\bin\Debug\Shader.SSync.pdb
+D:\Documents\dofus emulation\Symbioz-master\Symbioz.SSync\obj\Debug\Symbioz.SSync.csprojResolveAssemblyReference.cache
+D:\Documents\dofus emulation\Symbioz-master\Symbioz.SSync\obj\Debug\Shader.SSync.dll
+D:\Documents\dofus emulation\Symbioz-master\Symbioz.SSync\obj\Debug\Shader.SSync.pdb

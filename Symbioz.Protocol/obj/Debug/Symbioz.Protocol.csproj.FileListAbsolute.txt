@@ -28,3 +28,13 @@ D:\Projets\Symbioz\Symbioz.Protocol\bin\Debug\Shader.Protocol.pdb
 D:\Projets\Symbioz\Symbioz.Protocol\obj\Debug\Symbioz.Protocol.csprojResolveAssemblyReference.cache
 D:\Projets\Symbioz\Symbioz.Protocol\obj\Debug\Shader.Protocol.dll
 D:\Projets\Symbioz\Symbioz.Protocol\obj\Debug\Shader.Protocol.pdb
+C:\Users\louis\Desktop\Symbioz-master\Symbioz.Protocol\bin\Debug\Shader.Protocol.dll
+C:\Users\louis\Desktop\Symbioz-master\Symbioz.Protocol\bin\Debug\Shader.Protocol.pdb
+C:\Users\louis\Desktop\Symbioz-master\Symbioz.Protocol\obj\Debug\Symbioz.Protocol.csprojResolveAssemblyReference.cache
+C:\Users\louis\Desktop\Symbioz-master\Symbioz.Protocol\obj\Debug\Shader.Protocol.dll
+C:\Users\louis\Desktop\Symbioz-master\Symbioz.Protocol\obj\Debug\Shader.Protocol.pdb
+D:\Documents\dofus emulation\Symbioz-master\Symbioz.Protocol\bin\Debug\Shader.Protocol.dll
+D:\Documents\dofus emulation\Symbioz-master\Symbioz.Protocol\bin\Debug\Shader.Protocol.pdb
+D:\Documents\dofus emulation\Symbioz-master\Symbioz.Protocol\obj\Debug\Symbioz.Protocol.csprojResolveAssemblyReference.cache
+D:\Documents\dofus emulation\Symbioz-master\Symbioz.Protocol\obj\Debug\Shader.Protocol.dll
+D:\Documents\dofus emulation\Symbioz-master\Symbioz.Protocol\obj\Debug\Shader.Protocol.pdb

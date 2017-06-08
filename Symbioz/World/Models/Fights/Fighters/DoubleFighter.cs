@@ -30,6 +30,12 @@ namespace Symbioz.World.Models.Fights.Fighters
         {
             throw new NotImplementedException();
         }
+
+        public override byte GetLevel()
+        {
+            throw new NotImplementedException();
+        }
+
         public override void StartTurn()
         {
             base.StartTurn();

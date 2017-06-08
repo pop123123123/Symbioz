@@ -102,6 +102,7 @@
     <Compile Include="Providers\ActorIA\Actions\AnimatedBagAction.cs" />
     <Compile Include="Providers\ActorIA\Actions\BuffTeamAction.cs" />
     <Compile Include="Providers\ActorIA\Actions\CastAction.cs" />
+    <Compile Include="Providers\ActorIA\Actions\TonneauAction.cs" />
     <Compile Include="Providers\ActorIA\Actions\FleeAction.cs" />
     <Compile Include="Providers\ActorIA\Actions\MoveToLowerAllyAction.cs" />
     <Compile Include="Providers\ActorIA\Actions\TrySummonAction.cs" />

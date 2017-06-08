@@ -51,6 +51,10 @@ namespace Symbioz.World.Models.Fights.Fighters
                 Client.Character.Record.Level, Client.Character.GetActorAlignement(), Client.Character.Record.Breed,
                 Client.Character.Record.Sex);
         }
+        public override byte GetLevel ()
+        {
+            return CharacterRecord.GetCharacterRecordById(this.ContextualId).Level;
+        }
         public override void OnAdded()
         {
             Client.Send(new GameFightJoinMessage(false, true, false, Fight.FIGHT_PREPARATION_TIME, (sbyte)Fight.FightType));
@@ -305,7 +309,7 @@ namespace Symbioz.World.Models.Fights.Fighters
             GameActionFightPointsVariation(ActionsEnum.ACTION_CHARACTER_ACTION_POINTS_USE, (short)-spell.ApCost);
             FighterStats.Stats.ActionPoints -= spell.ApCost;
             RefreshStats();
-            Fight.TryEndSequence(2, 0);
+            Fight.TryEndSequence((sbyte)SequenceTypesEnum.SEQUENCE_WEAPON, (ushort)ActionsEnum.ACTION_SEQUENCE_END);
 
             Fight.CheckFightEnd();
         }
@@ -327,7 +331,7 @@ namespace Symbioz.World.Models.Fights.Fighters
             this.HandleWeaponEffect(cellid, effects, critical);
             this.FighterStats.Stats.ActionPoints -= template.ApCost;
             this.GameActionFightPointsVariation(ActionsEnum.ACTION_CHARACTER_ACTION_POINTS_USE, (short)(-template.ApCost));
-            Fight.TryEndSequence(2, 0);
+            Fight.TryEndSequence(2, (ushort)ActionsEnum.ACTION_SEQUENCE_END);
             return true;
         }
         public void HandleWeaponEffect(short cellid, List<ExtendedSpellEffect> handledEffects, FightSpellCastCriticalEnum critical)
@@ -338,7 +342,7 @@ namespace Symbioz.World.Models.Fights.Fighters
                 short[] cells = ShapesProvider.Handle(effect.ZoneShape, cellid, CellId, effect.ZoneSize).ToArray();
                 var actors = GetAffectedActors(cells, effect.Targets);
                 SpellEffectsHandler.Handle(this, null, effect, actors, cellid);
-                Fight.TryEndSequence(1, 0);
+                Fight.TryEndSequence((sbyte)SequenceTypesEnum.SEQUENCE_SPELL, (ushort)ActionsEnum.ACTION_SEQUENCE_END);
             }
             Fight.CheckFightEnd();
         }

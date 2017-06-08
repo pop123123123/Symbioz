@@ -1,0 +1,18 @@
+Client: 192.168.1.35:50353
+At: 05/06/2017 14:39:18
+System.NullReferenceException: La référence d'objet n'est pas définie à une instance d'un objet.
+   à Symbioz.World.Models.Fights.Fighters.Fighter.TakeDamages(TakenDamages damages, Int32 sourceid) dans D:\Projets\Symbioz\Symbioz\World\Models\Fights\Fighters\Fighter.cs:ligne 691
+   à Symbioz.Providers.SpellEffectsProvider.DamageEffects.<>c__DisplayClass8_0.<DamageFire>b__0(Fighter x) dans D:\Projets\Symbioz\Symbioz\Providers\SpellEffectsProvider\Effects\DamageEffects.cs:ligne 98
+   à System.Collections.Generic.List`1.ForEach(Action`1 action)
+   à Symbioz.Providers.SpellEffectsProvider.DamageEffects.DamageFire(Fighter fighter, SpellLevelRecord level, ExtendedSpellEffect record, List`1 affecteds, Int16 castcellid) dans D:\Projets\Symbioz\Symbioz\Providers\SpellEffectsProvider\Effects\DamageEffects.cs:ligne 98
+   à Symbioz.Providers.SpellEffectsHandler.Handle(Fighter fighter, SpellLevelRecord record, ExtendedSpellEffect effect, List`1 affecteds, Int16 castcellid) dans D:\Projets\Symbioz\Symbioz\Providers\SpellEffectsProvider\SpellEffectsHandler.cs:ligne 42
+   à Symbioz.World.Models.Fights.Fighters.Fighter.HandleSpellEffects(SpellLevelRecord spell, Int16 cellid, FightSpellCastCriticalEnum critical) dans D:\Projets\Symbioz\Symbioz\World\Models\Fights\Fighters\Fighter.cs:ligne 333
+   à Symbioz.World.Models.Fights.Fighters.Fighter.CastSpellOnCell(UInt16 spellid, Int16 cellid, Int32 targetId) dans D:\Projets\Symbioz\Symbioz\World\Models\Fights\Fighters\Fighter.cs:ligne 419
+   à Symbioz.Providers.ActorIA.Actions.CastAction.TryCast(MonsterFighter fighter, UInt16 spellid, Fighter target) dans D:\Projets\Symbioz\Symbioz\Providers\ActorIA\Actions\CastAction.cs:ligne 26
+   à Symbioz.Providers.ActorIA.Actions.CastAction.Execute(MonsterFighter fighter) dans D:\Projets\Symbioz\Symbioz\Providers\ActorIA\Actions\CastAction.cs:ligne 47
+   à Symbioz.Providers.ActorIA.MonsterBrain.NextAction() dans D:\Projets\Symbioz\Symbioz\Providers\ActorIA\MonsterBrain.cs:ligne 28
+   à Symbioz.Providers.ActorIA.MonsterBrain.StartPlay() dans D:\Projets\Symbioz\Symbioz\Providers\ActorIA\MonsterBrain.cs:ligne 56
+   à Symbioz.World.Models.Fights.Fighters.MonsterFighter.StartTurn() dans D:\Projets\Symbioz\Symbioz\World\Models\Fights\Fighters\MonsterFighter.cs:ligne 114
+   à Symbioz.World.Models.Fights.Fight.NewTurn() dans D:\Projets\Symbioz\Symbioz\World\Models\Fights\FightsTypes\Fight.cs:ligne 502
+   à Symbioz.World.Models.Fights.ClientsSynchronizer.ToggleReady(CharacterFighter fighter) dans D:\Projets\Symbioz\Symbioz\World\Models\Fights\ClientsSynchronizer.cs:ligne 60
+   à Symbioz.World.Handlers.FightHandler.HandleTurnReady(GameFightTurnReadyMessage message, WorldClient client) dans D:\Projets\Symbioz\Symbioz\World\Handlers\FightHandler.cs:ligne 25

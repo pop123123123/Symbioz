@@ -35,6 +35,11 @@ namespace Symbioz.World.Models.Fights.Fighters
             throw new NotImplementedException();
         }
 
+        public override byte GetLevel()
+        {
+            throw new NotImplementedException();
+        }
+
         public override void RefreshStats()
         {
             throw new NotImplementedException();

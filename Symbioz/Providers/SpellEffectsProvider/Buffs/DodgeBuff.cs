@@ -44,7 +44,7 @@ namespace Symbioz.Providers.SpellEffectsProvider.Buffs
                 Fighter.Fight.TryStartSequence(Fighter.ContextualId, 5);
                 Fighter.Fight.Send(new GameActionFightSlideMessage(0, Fighter.ContextualId,Fighter.ContextualId, Fighter.CellId, cells.Last()));
                 Fighter.CellId = cells.Last();
-                Fighter.Fight.TryEndSequence(5, 2);
+                Fighter.Fight.TryEndSequence(5, (ushort)ActionsEnum.ACTION_SEQUENCE_END);
             }
         }
         public override bool OnEventCalled(object arg1,object arg2,object arg3)

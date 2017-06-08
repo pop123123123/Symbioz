@@ -65,7 +65,7 @@ namespace Symbioz.World.Models.Fights
         }
         public void DirectExplosion(Fighter master,Fighter target,int bombMonsterId,sbyte spellGrade)
         {
-            master.Fight.TryEndSequence(1, 0); // During Spell Cast
+            master.Fight.TryEndSequence((sbyte)SequenceTypesEnum.SEQUENCE_SPELL, (ushort)ActionsEnum.ACTION_SEQUENCE_END); // During Spell Cast
 
             BombWallRecord bwall = BombWallRecord.GetWallRecord(bombMonsterId);
             master.Fight.TryStartSequence(master.ContextualId, 1);
@@ -77,11 +77,11 @@ namespace Symbioz.World.Models.Fights
             SpellLevelRecord elevel = SpellLevelRecord.GetLevel(bwall.CibleDetonationSpellId, spellGrade);
             target.HandleSpellEffects(elevel, target.CellId, FightSpellCastCriticalEnum.NORMAL);
             master.Fight.CheckFightEnd();
-            master.Fight.TryEndSequence(1, 0);
+            master.Fight.TryEndSequence((sbyte)SequenceTypesEnum.SEQUENCE_SPELL, (ushort)ActionsEnum.ACTION_SEQUENCE_END);
         }
         public void CastDetonation(Fighter master,Fighter bomb,ushort explosionSpellId,int bombMonsterId,sbyte spellGrade)
         {
-            master.Fight.TryEndSequence(1, 0); // During Spell Cast
+            master.Fight.TryEndSequence((sbyte)SequenceTypesEnum.SEQUENCE_SPELL, (ushort)ActionsEnum.ACTION_SEQUENCE_END); // During Spell Cast
 
             BombWallRecord bwall = BombWallRecord.GetWallRecord(bombMonsterId);
             master.Fight.TryStartSequence(master.ContextualId, 1);
@@ -93,7 +93,7 @@ namespace Symbioz.World.Models.Fights
             SpellLevelRecord elevel = SpellLevelRecord.GetLevel(bwall.CibleDetonationSpellId, spellGrade);
             bomb.HandleSpellEffects(elevel, bomb.CellId, FightSpellCastCriticalEnum.NORMAL);
             master.Fight.CheckFightEnd();
-            master.Fight.TryEndSequence(1, 0);
+            master.Fight.TryEndSequence((sbyte)SequenceTypesEnum.SEQUENCE_SPELL, (ushort)ActionsEnum.ACTION_SEQUENCE_END);
         }
         public static short[] GetPortals(Fight fight,short castCellId)
         {

@@ -261,7 +261,6 @@ namespace Symbioz.World.Models.Fights
                 }
                 else
                 {
-                    // PushDamages
                     break;
                 }
             }
@@ -399,7 +398,7 @@ namespace Symbioz.World.Models.Fights
             Marks.Remove(mark);
             MarkInteractions.RemoveAll(x => x.Mark == mark);
             Send(new GameActionFightUnmarkCellsMessage(310, master.ContextualId,mark.Id));
-            TryEndSequence(3, 0);
+            TryEndSequence(3, (ushort)ActionsEnum.ACTION_SEQUENCE_END);
         }
         public void Acknowledge()
         {

@@ -34,6 +34,10 @@ namespace Symbioz.World.Models.Fights.Fighters
             this.ReadyToFight = true;
 
         }
+        public override byte GetLevel()
+        {
+            return Master.GetLevel();
+        }
         public override void StartTurn()
         {
             RefreshFighter();

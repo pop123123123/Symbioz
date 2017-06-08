@@ -42,7 +42,7 @@ namespace Symbioz.Providers.SpellEffectsProvider.Buffs
         public override bool OnEventCalled(object arg1, object arg2, object arg3)
         {
             TakenDamages damages = (TakenDamages)arg2;
-            damages.Delta *= (short)(Delta / 100);
+            damages.Delta = (short)(((float)damages.Delta) * (((float)Delta) / 100));
             Fighter.LoseLife(damages,(int)arg1);
             return true;
         }

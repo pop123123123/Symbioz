@@ -48,7 +48,7 @@ namespace Symbioz.World.Models.Fights.Marks
                 Caster.Fight.TryStartSequence(Caster.ContextualId, 1);
                 short[] cells = ShapesProvider.Handle(effect.ZoneShape, CenterCell, fighter.CellId, effect.ZoneSize).ToArray();
                 SpellEffectsHandler.Handle(Caster, spellLevel, effect, new List<Fighter>() { fighter }, CenterCell);
-                Caster.Fight.TryEndSequence(1, 0);
+                Caster.Fight.TryEndSequence((sbyte)SequenceTypesEnum.SEQUENCE_SPELL, (ushort)ActionsEnum.ACTION_SEQUENCE_END);
             }
             Caster.Fight.CheckFightEnd();
         }
@@ -56,11 +56,11 @@ namespace Symbioz.World.Models.Fights.Marks
         {
             Caster.Fight.TryStartSequence(Caster.ContextualId, 1);
             Caster.Fight.Send(new GameActionFightTriggerGlyphTrapMessage((ushort)ActionsEnum.ACTION_FIGHT_TRIGGER_GLYPH, Caster.ContextualId, Id, source.ContextualId, (ushort)AssociatedSpellId));
-            Caster.Fight.TryEndSequence(1, 0);
+            Caster.Fight.TryEndSequence((sbyte)SequenceTypesEnum.SEQUENCE_SPELL, (ushort)ActionsEnum.ACTION_SEQUENCE_END);
         }
         public void ActivateZone(Fighter fighter)
         {
-          //  fighter.Fight.TryEndSequence(1, 0);
+          //  fighter.Fight.TryEndSequence((sbyte)SequenceTypesEnum.SEQUENCE_SPELL, (ushort)ActionsEnum.ACTION_SEQUENCE_END);
       //    fighter.Fight.TryStartSequence(1, 0);
             var spellLevel = SpellLevelRecord.GetLevel((ushort)AssociatedSpellId, AssociatedSpellGrade);
             DisplayTriggered(fighter);

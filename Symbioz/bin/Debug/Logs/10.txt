@@ -1,0 +1,29 @@
+Client: 192.168.1.48:49349
+At: 05/06/2017 12:01:06
+System.Reflection.TargetInvocationException: Une exception a été levée par la cible d'un appel. ---> System.NullReferenceException: La référence d'objet n'est pas définie à une instance d'un objet.
+   à Symbioz.World.Models.Fights.Fighters.Fighter.TakeDamages(TakenDamages damages, Int32 sourceid) dans D:\Projets\Symbioz\Symbioz\World\Models\Fights\Fighters\Fighter.cs:ligne 691
+   à Symbioz.Providers.SpellEffectsProvider.DamageEffects.<>c__DisplayClass7_0.<DamageEarth>b__0(Fighter x) dans D:\Projets\Symbioz\Symbioz\Providers\SpellEffectsProvider\Effects\DamageEffects.cs:ligne 91
+   à System.Collections.Generic.List`1.ForEach(Action`1 action)
+   à Symbioz.Providers.SpellEffectsProvider.DamageEffects.DamageEarth(Fighter fighter, SpellLevelRecord level, ExtendedSpellEffect record, List`1 affecteds, Int16 castcellid) dans D:\Projets\Symbioz\Symbioz\Providers\SpellEffectsProvider\Effects\DamageEffects.cs:ligne 91
+   à Symbioz.Providers.SpellEffectsHandler.Handle(Fighter fighter, SpellLevelRecord record, ExtendedSpellEffect effect, List`1 affecteds, Int16 castcellid) dans D:\Projets\Symbioz\Symbioz\Providers\SpellEffectsProvider\SpellEffectsHandler.cs:ligne 42
+   à Symbioz.World.Models.Fights.Fighters.Fighter.HandleSpellEffects(SpellLevelRecord spell, Int16 cellid, FightSpellCastCriticalEnum critical) dans D:\Projets\Symbioz\Symbioz\World\Models\Fights\Fighters\Fighter.cs:ligne 333
+   à Symbioz.World.Models.Fights.Marks.Trap.Explode(Fighter fighter) dans D:\Projets\Symbioz\Symbioz\World\Models\Fights\Marks\Trap.cs:ligne 44
+   à Symbioz.World.Models.Fights.Marks.Trap.AfterMove(Fighter source, Object arg1, Object arg2, Object arg3) dans D:\Projets\Symbioz\Symbioz\World\Models\Fights\Marks\Trap.cs:ligne 33
+   --- Fin de la trace de la pile d'exception interne ---
+   à System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   à System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   à System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   à System.Reflection.MethodBase.Invoke(Object obj, Object[] parameters)
+   à Symbioz.World.Models.Fights.Fighters.Fighter.ApplyFighterEvent(FighterEventType eventtype, Object arg1, Object arg2, Object arg3) dans D:\Projets\Symbioz\Symbioz\World\Models\Fights\Fighters\Fighter.cs:ligne 727
+   à Symbioz.World.Models.Fights.Fighters.Fighter.Move(List`1 keys, Int16 cellid, SByte direction) dans D:\Projets\Symbioz\Symbioz\World\Models\Fights\Fighters\Fighter.cs:ligne 237
+   à Symbioz.Providers.ActorIA.Actions.MoveToLowerEnemy.Execute(MonsterFighter fighter) dans D:\Projets\Symbioz\Symbioz\Providers\ActorIA\Actions\MoveToLowerEnemy.cs:ligne 29
+   à Symbioz.Providers.ActorIA.MonsterBrain.NextAction() dans D:\Projets\Symbioz\Symbioz\Providers\ActorIA\MonsterBrain.cs:ligne 28
+   à Symbioz.Providers.ActorIA.MonsterBrain.OnActionEnded() dans D:\Projets\Symbioz\Symbioz\Providers\ActorIA\MonsterBrain.cs:ligne 51
+   à Symbioz.Providers.ActorIA.MonsterBrain.NextAction() dans D:\Projets\Symbioz\Symbioz\Providers\ActorIA\MonsterBrain.cs:ligne 37
+   à Symbioz.Providers.ActorIA.MonsterBrain.OnActionEnded() dans D:\Projets\Symbioz\Symbioz\Providers\ActorIA\MonsterBrain.cs:ligne 51
+   à Symbioz.Providers.ActorIA.MonsterBrain.NextAction() dans D:\Projets\Symbioz\Symbioz\Providers\ActorIA\MonsterBrain.cs:ligne 37
+   à Symbioz.Providers.ActorIA.MonsterBrain.StartPlay() dans D:\Projets\Symbioz\Symbioz\Providers\ActorIA\MonsterBrain.cs:ligne 56
+   à Symbioz.World.Models.Fights.Fighters.MonsterFighter.StartTurn() dans D:\Projets\Symbioz\Symbioz\World\Models\Fights\Fighters\MonsterFighter.cs:ligne 114
+   à Symbioz.World.Models.Fights.Fight.NewTurn() dans D:\Projets\Symbioz\Symbioz\World\Models\Fights\FightsTypes\Fight.cs:ligne 502
+   à Symbioz.World.Models.Fights.ClientsSynchronizer.ToggleReady(CharacterFighter fighter) dans D:\Projets\Symbioz\Symbioz\World\Models\Fights\ClientsSynchronizer.cs:ligne 60
+   à Symbioz.World.Handlers.FightHandler.HandleTurnReady(GameFightTurnReadyMessage message, WorldClient client) dans D:\Projets\Symbioz\Symbioz\World\Handlers\FightHandler.cs:ligne 25

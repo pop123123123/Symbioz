@@ -39,6 +39,10 @@ namespace Symbioz.World.Models.Fights.Fighters
         {
             return null;
         }
+        public override byte GetLevel()
+        {
+            return (byte)this.Grade;
+        }
         public override void OnMoved(List<short> cells)
         {
             CheckWalls();
@@ -120,7 +124,7 @@ namespace Symbioz.World.Models.Fights.Fighters
             //FighterLook = RealFighterLook;
             //this.Fight.TryStartSequence(this.ContextualId, 1);
             //this.Fight.Send(new GameActionFightChangeLookMessage(0, this.ContextualId, this.ContextualId, FighterLook.ToEntityLook()));
-            //this.Fight.TryEndSequence(1, 0);
+            //this.Fight.TryEndSequence((sbyte)SequenceTypesEnum.SEQUENCE_SPELL, (ushort)ActionsEnum.ACTION_SEQUENCE_END);
         }
         public void Detonate()
         {

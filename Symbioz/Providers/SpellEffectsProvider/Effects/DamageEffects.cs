@@ -84,32 +84,39 @@ namespace Symbioz.Providers.SpellEffectsProvider
             affecteds.ForEach(x => Steal(fighter, x, jet, ElementType.Air, level));
 
         }
+        static void Damage(Fighter fighter, Fighter target, short jet, ElementType element, SpellLevelRecord level)
+        {
+            var takenDamages = new TakenDamages(jet, element);
+            takenDamages.EvaluateWithResistances(fighter, target, fighter.Fight.PvP);
+            target.TakeDamages(new TakenDamages(jet, element), fighter.ContextualId);
+
+        }
         [EffectHandler(EffectsEnum.Eff_DamageEarth)]
         public static void DamageEarth(Fighter fighter, SpellLevelRecord level, ExtendedSpellEffect record, List<Fighter> affecteds, short castcellid)
         {
             var jet = fighter.CalculateJet(record, fighter.FighterStats.Stats.Strength);
-            affecteds.ForEach(x => x.TakeDamages(new TakenDamages(jet, ElementType.Earth), fighter.ContextualId));
+            affecteds.ForEach(x => Damage(fighter, x, jet, ElementType.Earth, level));
 
         }
         [EffectHandler(EffectsEnum.Eff_DamageFire)]
         public static void DamageFire(Fighter fighter, SpellLevelRecord level, ExtendedSpellEffect record, List<Fighter> affecteds, short castcellid)
         {
             var jet = fighter.CalculateJet(record, fighter.FighterStats.Stats.Intelligence);
-            affecteds.ForEach(x => x.TakeDamages(new TakenDamages(jet, ElementType.Fire), fighter.ContextualId));
+            affecteds.ForEach(x => Damage(fighter, x, jet, ElementType.Fire, level));
 
         }
         [EffectHandler(EffectsEnum.Eff_DamageWater)]
         public static void DamageWater(Fighter fighter, SpellLevelRecord level, ExtendedSpellEffect record, List<Fighter> affecteds, short castcellid)
         {
             var jet = fighter.CalculateJet(record, fighter.FighterStats.Stats.Chance);
-            affecteds.ForEach(x => x.TakeDamages(new TakenDamages(jet, ElementType.Water), fighter.ContextualId));
+            affecteds.ForEach(x => Damage(fighter, x, jet, ElementType.Water, level));
 
         }
         [EffectHandler(EffectsEnum.Eff_DamageAir)]
         public static void DamageAir(Fighter fighter, SpellLevelRecord level, ExtendedSpellEffect record, List<Fighter> affecteds, short castcellid)
         {
             var jet = fighter.CalculateJet(record, fighter.FighterStats.Stats.Agility);
-            affecteds.ForEach(x => x.TakeDamages(new TakenDamages(jet, ElementType.Air), fighter.ContextualId));
+            affecteds.ForEach(x => Damage(fighter, x, jet, ElementType.Air, level));
 
         }
         [EffectHandler(EffectsEnum.Eff_DamageNeutral)]
