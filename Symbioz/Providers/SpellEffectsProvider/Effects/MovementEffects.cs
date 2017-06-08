@@ -250,7 +250,7 @@ namespace Symbioz.Providers.SpellEffectsProvider.Effects
         [EffectHandler(EffectsEnum.Eff_PushBack)] //Flèche de recul
         public static void PushBack(Fighter fighter, SpellLevelRecord level, ExtendedSpellEffect effect, List<Fighter> affecteds, short castcellid)
         {
-            foreach (var target in affecteds)
+            foreach (var target in affecteds.Reverse<Fighter>())
             {
                 DirectionsEnum direction = 0;
 

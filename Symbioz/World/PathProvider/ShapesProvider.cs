@@ -473,7 +473,10 @@ namespace Symbioz.World.PathProvider
         public static List<short> GeetLShape(short startcell, short entitycell, short radius)
         {
             var line = GetLineFromDirection(startcell, radius, GetDirectionFromTwoCells(entitycell, startcell));
-            line.Add(startcell);
+            if (!line.Contains(startcell))
+            {
+                line.Insert(0, startcell);
+            }
             Verify(line);
             return line;
         }
