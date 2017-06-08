@@ -13,6 +13,8 @@ namespace Symbioz.World.Models.Fights.Damages
     {
         public short Delta { get; set; }
 
+        private bool Evaluated = false;
+
         public ElementType ElementType { get; set; }
 
         public TakenDamages(short delta, ElementType elementtype)
@@ -31,8 +33,9 @@ namespace Symbioz.World.Models.Fights.Damages
         /// <returns></returns>
         public void EvaluateWithResistances(Fighter source,Fighter target,bool pvp)
         {
-            if (source == null)
+            if (source == null || Evaluated)
                 return;
+            Evaluated = true;
             short elementBonus = 0;
             short elementReduction = 0;
             double elementResistPercent = 0;
@@ -77,10 +80,11 @@ namespace Symbioz.World.Models.Fights.Damages
                 Delta = (short)(Delta - elementReduction - (elementResistPercent/ 100 * Delta));
             else
                 Delta -= elementReduction;
-            if (target.FighterStats.Stats.GlobalDamageReduction > 0)
-            {
-                Delta -= target.FighterStats.Stats.GlobalDamageReduction;
-                target.Fight.Send(new GameActionFightReduceDamagesMessage(0, source.ContextualId, target.ContextualId, (uint)target.FighterStats.Stats.GlobalDamageReduction));
+            if (target.FighterStats.Stats.GlobalDamageReduction > 0 && ElementType != ElementType.Push)
+            {//TODO evaluate properly damage reduction => the level should be the one of the dmg reduction spell's launcher, not the one of the player himself
+                short reduction = (short)(target.FighterStats.Stats.GlobalDamageReduction * (100 + 5 * target.GetLevel()) / 100);
+                Delta -= reduction;
+                target.Fight.Send(new GameActionFightReduceDamagesMessage(0, source.ContextualId, target.ContextualId, (uint)reduction));
             }
             if (Delta <= 0)
                 Delta = 0;

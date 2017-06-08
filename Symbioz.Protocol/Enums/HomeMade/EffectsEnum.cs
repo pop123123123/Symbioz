@@ -203,7 +203,7 @@ namespace Symbioz.Enums
 		Eff_407,
 		Eff_410 = 410,
 		Eff_411,
-		Eff_412,
+		Eff_412,//Bonus ret PM
 		Eff_413,
 		Eff_AddPushDamageBonus = 414,
 		Eff_SubPushDamageBonus = 415,

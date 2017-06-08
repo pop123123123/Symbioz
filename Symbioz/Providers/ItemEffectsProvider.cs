@@ -57,6 +57,7 @@ namespace Symbioz.Provider
             Functions.Add(EffectsEnum.Eff_SubChance, SubChance);
             Functions.Add(EffectsEnum.Eff_SubStrength, SubStrength);
             Functions.Add(EffectsEnum.Eff_410, APReduction);
+            Functions.Add(EffectsEnum.Eff_412, MPReduction);
             Functions.Add(EffectsEnum.Eff_IncreaseAPAvoid, IncreaseAPAvoid);
             Functions.Add(EffectsEnum.Eff_AddCriticalDamageBonus, AddCriticalDamageBonus);
             Functions.Add(EffectsEnum.Eff_SubCriticalDamageReduction, SubCriticalDamageReduction);
@@ -303,6 +304,10 @@ namespace Symbioz.Provider
         private static void APReduction(WorldClient client, short value)
         {
             client.Character.StatsRecord.ContextAPReduction += value;
+        }
+        private static void MPReduction(WorldClient client, short value)
+        {
+            client.Character.StatsRecord.ContextMPReduction += value;
         }
     }
 }

@@ -261,7 +261,7 @@ namespace Symbioz.World.Models.Fights.Fighters
             ApplyFighterEvent(FighterEventType.BEFORE_DIED, null);
             GetAliveFighterSummons().ForEach(x => x.Die());
             OnDied();
-            Fight.TryEndSequence((sbyte)SequenceTypesEnum.SEQUENCE_SPELL, (ushort)ActionsEnum.ACTION_SEQUENCE_END);
+            //Fight.TryEndSequence((sbyte)SequenceTypesEnum.SEQUENCE_SPELL, (ushort)ActionsEnum.ACTION_SEQUENCE_END);
             Fight.TryStartSequence(ContextualId, 6);
             Fight.Send(new GameActionFightDeathMessage(103, ContextualId, ContextualId));
             Fight.TryEndSequence((sbyte)SequenceTypesEnum.SEQUENCE_CHARACTER_DEATH, (ushort)ActionsEnum.ACTION_SEQUENCE_END);

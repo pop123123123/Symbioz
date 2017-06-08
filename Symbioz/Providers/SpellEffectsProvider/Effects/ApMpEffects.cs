@@ -2,43 +2,51 @@
 using Symbioz.Providers.SpellEffectsProvider.Buffs;
 using Symbioz.World.Models.Fights.Fighters;
 using Symbioz.World.Records.Spells;
+using Symbioz.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Symbioz.DofusProtocol.Messages;
 
 namespace Symbioz.Providers.SpellEffectsProvider.Effects
 {
     class ApMpEffects
     {
         #region Action Points Effects
-        [EffectHandler(EffectsEnum.Eff_LosingAP)]
+        [EffectHandler(EffectsEnum.Eff_LosingAP)]//None
         public static void LosingAp(Fighter fighter, SpellLevelRecord level, ExtendedSpellEffect effect, List<Fighter> affecteds, short castcellid)
         {
             RemoveAP(fighter, level, effect, affecteds, castcellid);
         }
-        [EffectHandler(EffectsEnum.Eff_RemoveAP)]
+        [EffectHandler(EffectsEnum.Eff_RemoveAP)]//Flèche glacée
         public static void RemoveAP(Fighter fighter, SpellLevelRecord level, ExtendedSpellEffect effect, List<Fighter> affecteds, short castcellid)
         {
             foreach (var affected in affecteds)
             {
-
-
-                // TODO ALGO
-
-                //if (loss == 0)
-                //{
-                //    fighter.Fight.Send(new GameActionFightDodgePointLossMessage((ushort)ActionsEnum.ACTION_FIGHT_SPELL_DODGED_PA, fighter.ContextualId, affected.ContextualId,(ushort)maxLost));
-                //}
-                //else 
-                //{
-                //    var buff = new APBuff((uint)affected.BuffIdProvider.Pop(),loss, effect.BaseEffect.Duration, fighter.ContextualId, (short)level.SpellId, effect.BaseEffect.EffectType);
-                //    affected.AddBuff(buff);
-                //}
+                short loss = 0;
+                for (int i = 0; i < effect.BaseEffect.DiceNum; i++)
+                {
+                    byte chance = (byte)((affected.FighterStats.RealStats.ActionPoints - loss) * 100 * fighter.FighterStats.RealStats.APAttack / (affected.FighterStats.Stats.ActionPoints * affected.FighterStats.RealStats.APReduction * 2));
+                    short jet = (short)new AsyncRandom().NextDouble(1,100);
+                    if (chance >= jet)
+                    {
+                        loss++;
+                    }
+                }
+                if (loss != effect.BaseEffect.DiceNum)
+                {
+                    fighter.Fight.Send(new GameActionFightDodgePointLossMessage((ushort)ActionsEnum.ACTION_FIGHT_SPELL_DODGED_PA, fighter.ContextualId, affected.ContextualId, (ushort)(effect.BaseEffect.DiceNum - loss)));
+                }
+                if (loss != 0)
+                {//TODO not dispellable AP Loss
+                    var buff = new APBuff((uint)affected.BuffIdProvider.Pop(), loss, effect.BaseEffect.Duration, fighter.ContextualId, (short)level.SpellId, effect.BaseEffect.EffectType, effect.BaseEffect.Delay);
+                    affected.AddBuff(buff);
+                }
             }
         }
-        [EffectHandler(EffectsEnum.Eff_SubAP)]
+        [EffectHandler(EffectsEnum.Eff_SubAP)]//Odorat
         public static void SubAP(Fighter fighter, SpellLevelRecord level, ExtendedSpellEffect effect, List<Fighter> affecteds, short castcellid)
         {
             foreach (var affected in affecteds)
@@ -89,17 +97,25 @@ namespace Symbioz.Providers.SpellEffectsProvider.Effects
         {
             foreach (var affected in affecteds)
             {
-                // TODO, ALGO
-
-                //if (loss == 0)
-                //{
-                //    fighter.Fight.Send(new GameActionFightDodgePointLossMessage((ushort)ActionsEnum.ACTION_FIGHT_SPELL_DODGED_PM, fighter.ContextualId, affected.ContextualId, (ushort)maxLost));
-                //}
-                //else
-                //{
-                //    var buff = new MPBuff((uint)affected.BuffIdProvider.Pop(), loss, effect.BaseEffect.Duration, fighter.ContextualId, (short)level.SpellId, effect.BaseEffect.EffectType);
-                //    affected.AddBuff(buff);
-                //}
+                short loss = 0;
+                for (int i = 0; i < effect.BaseEffect.DiceNum; i++)
+                {
+                    byte chance = (byte)((affected.FighterStats.RealStats.MovementPoints - loss) * 100 * fighter.FighterStats.RealStats.MPAttack / (affected.FighterStats.Stats.MovementPoints * affected.FighterStats.RealStats.MPReduction * 2));
+                    short jet = (short)new AsyncRandom().NextDouble(1, 100);
+                    if (chance >= jet)
+                    {
+                        loss++;
+                    }
+                }
+                if (loss != effect.BaseEffect.DiceNum)
+                {
+                    fighter.Fight.Send(new GameActionFightDodgePointLossMessage((ushort)ActionsEnum.ACTION_FIGHT_SPELL_DODGED_PM, fighter.ContextualId, affected.ContextualId, (ushort)(effect.BaseEffect.DiceNum - loss)));
+                }
+                if (loss != 0)
+                {//TODO not dispellable MP Loss
+                    var buff = new MPBuff((uint)affected.BuffIdProvider.Pop(), loss, effect.BaseEffect.Duration, fighter.ContextualId, (short)level.SpellId, effect.BaseEffect.EffectType, effect.BaseEffect.Delay);
+                    affected.AddBuff(buff);
+                }
             }
         }
         #endregion
