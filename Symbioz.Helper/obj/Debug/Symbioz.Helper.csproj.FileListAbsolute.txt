@@ -33,3 +33,8 @@ D:\Documents\dofus emulation\Symbioz-master\Symbioz.Helper\bin\Debug\Shader.Help
 D:\Documents\dofus emulation\Symbioz-master\Symbioz.Helper\obj\Debug\Symbioz.Helper.csprojResolveAssemblyReference.cache
 D:\Documents\dofus emulation\Symbioz-master\Symbioz.Helper\obj\Debug\Shader.Helper.dll
 D:\Documents\dofus emulation\Symbioz-master\Symbioz.Helper\obj\Debug\Shader.Helper.pdb
+D:\Documents\dofus emulation\Symbioz\Symbioz.Helper\bin\Debug\Shader.Helper.dll
+D:\Documents\dofus emulation\Symbioz\Symbioz.Helper\bin\Debug\Shader.Helper.pdb
+D:\Documents\dofus emulation\Symbioz\Symbioz.Helper\obj\Debug\Symbioz.Helper.csprojResolveAssemblyReference.cache
+D:\Documents\dofus emulation\Symbioz\Symbioz.Helper\obj\Debug\Shader.Helper.dll
+D:\Documents\dofus emulation\Symbioz\Symbioz.Helper\obj\Debug\Shader.Helper.pdb

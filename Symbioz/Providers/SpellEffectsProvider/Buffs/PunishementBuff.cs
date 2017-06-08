@@ -60,7 +60,7 @@ namespace Symbioz.Providers.SpellEffectsProvider.Buffs
                 if (statBuffDelta + num > (int)Delta)
                     statBuffDelta = (short)(Delta - num);
 
-                StatBuff buff = new StatBuff((uint)Fighter.BuffIdProvider.Pop(), StatDefinition, (uint)GetBuffEffectType(StatDefinition.FieldName), statBuffDelta, PunishementDelay, Fighter.ContextualId, SourceSpellId, statBuffDelta,0);
+                StatBuff buff = new StatBuff((uint)Fighter.BuffIdProvider.Pop(), StatDefinition, (uint)GetBuffEffectType(StatDefinition.FieldName), statBuffDelta, PunishementDelay, Fighter.ContextualId, SourceSpellLevelId, statBuffDelta,0);
                 Fighter.AddBuff(buff);
             }
             return false;

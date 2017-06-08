@@ -22,7 +22,7 @@ namespace Symbioz.World.Models.Fights
         public bool CanCast(SpellLevelRecord level,int targetId)
         {
             int count = m_castedSpells.FindAll(x => x.SpellId == level.SpellId).Count(); // nombre de fois lancer ce tour
-            int countPerTarget = m_castedSpells.FindAll(x => x.SpellId == level.SpellId && x.TargetId == targetId).Count(); // nombre de fois lancer ce tour
+            int countPerTarget = m_castedSpells.FindAll(x => x.SpellId == level.SpellId && x.TargetId == targetId).Count(); // nombre de fois lancer ce tour sur cette target
             var @default = m_castedSpells.FirstOrDefault(x => x.SpellId == level.SpellId);
             if (@default != null)
             {
@@ -33,7 +33,7 @@ namespace Symbioz.World.Models.Fights
             }
             if (count == level.MaxCastPerTurn && count != 0)
                 return false;
-            if (count == level.MaxCastPerTarget && targetId != 0 && count != 0)
+            if (countPerTarget == level.MaxCastPerTarget && targetId != 0 && count != 0)
                 return false;
             return true;
         }

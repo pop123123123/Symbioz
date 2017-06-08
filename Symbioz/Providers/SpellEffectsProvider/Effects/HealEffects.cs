@@ -49,7 +49,7 @@ namespace Symbioz.Providers.SpellEffectsProvider.Effects
             {
                 foreach (var target in affecteds)
                 {
-                    HealPercentBuff buff = new HealPercentBuff((uint)target.BuffIdProvider.Pop(), effect.BaseEffect.DiceNum, effect.BaseEffect.Duration, fighter.ContextualId, (short)level.SpellId, effect.BaseEffect.Delay);
+                    HealPercentBuff buff = new HealPercentBuff((uint)target.BuffIdProvider.Pop(), effect.BaseEffect.DiceNum, effect.BaseEffect.Duration, fighter.ContextualId, (short)level.Id, effect.BaseEffect.Delay);
                     target.AddBuff(buff);
                 }
             }

@@ -278,7 +278,7 @@ namespace Symbioz.World.Models.Fights.Fighters
                     Client.Character.ReplyError("Lancé par tour limité.");
                     break;
                 case CastFailedReason.NOT_PLAYING:
-                    Client.Character.ReplyError("Vous n'etes pas entrain de jouer...");
+                    Client.Character.ReplyError("Vous n'etes pas en train de jouer...");
                     break;
             }
             Fight.Send(new GameActionFightNoSpellCastMessage((uint)spelllevel.Grade));
@@ -293,18 +293,18 @@ namespace Symbioz.World.Models.Fights.Fighters
         }
         public void UsePunch(short cellid)
         {
-            Fight.TryStartSequence(this.ContextualId, 2);
+            Fight.TryStartSequence(this.ContextualId, (sbyte)SequenceTypesEnum.SEQUENCE_WEAPON);
             Fighter target = Fight.GetFighter(cellid);
             SpellLevelRecord spell = GetSpellLevel((ushort)PUNCH_SPELL);
             if (target != null)
             {
-                Fight.Send(new GameActionFightCloseCombatMessage(0, this.ContextualId, target.ContextualId, cellid, 0, false, 0));
+                Fight.Send(new GameActionFightCloseCombatMessage((ushort)ActionsEnum.ACTION_FIGHT_CLOSE_COMBAT, this.ContextualId, target.ContextualId, cellid, 0, false, 0));
                 var jet = CalculateJet(spell.Effects[0], FighterStats.Stats.Strength);
-                target.TakeDamages(new TakenDamages(jet, ElementType.Earth), this.ContextualId);
+                target.TakeDamages(new TakenDamages(jet, ElementType.Neutral), this.ContextualId);
             }
             else
             {
-                Fight.Send(new GameActionFightCloseCombatMessage(0, this.ContextualId, 0, cellid, 0, false, 0));
+                Fight.Send(new GameActionFightCloseCombatMessage((ushort)ActionsEnum.ACTION_FIGHT_CLOSE_COMBAT, this.ContextualId, 0, cellid, 0, false, 0));
             }
             GameActionFightPointsVariation(ActionsEnum.ACTION_CHARACTER_ACTION_POINTS_USE, (short)-spell.ApCost);
             FighterStats.Stats.ActionPoints -= spell.ApCost;

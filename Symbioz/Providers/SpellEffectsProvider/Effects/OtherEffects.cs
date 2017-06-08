@@ -35,7 +35,7 @@ namespace Symbioz.Providers.SpellEffectsProvider.Effects
         {
             foreach (var target in affecteds)
             {
-                MultiplyTakenDamageBuff buff = new MultiplyTakenDamageBuff((uint)target.BuffIdProvider.Pop(), effect.BaseEffect.DiceNum, effect.BaseEffect.Duration, fighter.ContextualId, (short)level.SpellId, effect.BaseEffect.Delay);
+                MultiplyTakenDamageBuff buff = new MultiplyTakenDamageBuff((uint)target.BuffIdProvider.Pop(), effect.BaseEffect.DiceNum, effect.BaseEffect.Duration, fighter.ContextualId, (short)level.Id, effect.BaseEffect.Delay);
                 target.AddBuff(buff);
             }
         }
@@ -44,7 +44,7 @@ namespace Symbioz.Providers.SpellEffectsProvider.Effects
         {
             foreach (var target in affecteds)
             {
-                DamageSwapBuff buff = new DamageSwapBuff((uint)target.BuffIdProvider.Pop(), effect.BaseEffect.DiceNum, effect.BaseEffect.Duration, fighter.ContextualId, (short)level.SpellId, effect.BaseEffect.Delay);
+                DamageSwapBuff buff = new DamageSwapBuff((uint)target.BuffIdProvider.Pop(), effect.BaseEffect.DiceNum, effect.BaseEffect.Duration, fighter.ContextualId, (short)level.Id, effect.BaseEffect.Delay);
                 target.AddBuff(buff);
             }
         }
@@ -88,7 +88,7 @@ namespace Symbioz.Providers.SpellEffectsProvider.Effects
         {
             foreach (var target in affecteds)
             {
-                InvisibilityBuff buff = new InvisibilityBuff((uint)target.BuffIdProvider.Pop(), effect.BaseEffect.DiceNum, effect.BaseEffect.Duration, fighter.ContextualId, (short)level.SpellId, effect.BaseEffect.Delay);
+                InvisibilityBuff buff = new InvisibilityBuff((uint)target.BuffIdProvider.Pop(), effect.BaseEffect.DiceNum, effect.BaseEffect.Duration, fighter.ContextualId, (short)level.Id, effect.BaseEffect.Delay);
                 target.AddBuff(buff);
             }
         }

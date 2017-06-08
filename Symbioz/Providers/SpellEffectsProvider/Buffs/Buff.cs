@@ -2,6 +2,7 @@
 using Symbioz.DofusProtocol.Types;
 using Symbioz.Enums;
 using Symbioz.World.Models.Fights.Fighters;
+using Symbioz.World.Records.Spells;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,16 +18,22 @@ namespace Symbioz.Providers.SpellEffectsProvider.Buffs
         public short Delta { get; set; }
         public short Duration { get; set; }
         public int SourceId { get; set; }
-        public short SourceSpellId { get; set; }
+        public short SourceSpellId {
+            get
+            {
+                return (short)SpellLevelRecord.GetLevel(this.SourceSpellLevelId).SpellId;
+            }
+        }
+        public short SourceSpellLevelId { get; set; }
         public int Delay { get; set; }
         public virtual FighterEventType EventType { get { return FighterEventType.ON_CASTED; } }
 
-        public Buff(uint UID,short delta,short duration,int sourceid,short sourcespellid,int delay)
+        public Buff(uint UID,short delta,short duration,int sourceid,short sourcespelllevelid,int delay)
         {
             this.Delta = delta;
             this.Duration = duration;
             this.SourceId = sourceid;
-            this.SourceSpellId = sourcespellid;
+            this.SourceSpellLevelId = sourcespelllevelid;
             this.UID = UID;
             this.Delay = delay;
 

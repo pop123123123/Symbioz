@@ -1,0 +1,10 @@
+Client: 192.168.0.10:52421
+At: 08/06/2017 21:33:18
+System.ArgumentOutOfRangeException: L'index était hors limites. Il ne doit pas être négatif et doit être inférieur à la taille de la collection.
+Nom du paramètre : index
+   à System.ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument argument, ExceptionResource resource)
+   à System.Collections.Generic.List`1.get_Item(Int32 index)
+   à Symbioz.World.Models.Fights.TimeLine.PopNextFighter() dans D:\Documents\dofus emulation\Symbioz\Symbioz\World\Models\Fights\TimeLine.cs:ligne 81
+   à Symbioz.World.Models.Fights.Fight.NewTurn() dans D:\Documents\dofus emulation\Symbioz\Symbioz\World\Models\Fights\FightsTypes\Fight.cs:ligne 503
+   à Symbioz.World.Models.Fights.ClientsSynchronizer.ToggleReady(CharacterFighter fighter) dans D:\Documents\dofus emulation\Symbioz\Symbioz\World\Models\Fights\ClientsSynchronizer.cs:ligne 60
+   à Symbioz.World.Handlers.FightHandler.HandleTurnReady(GameFightTurnReadyMessage message, WorldClient client) dans D:\Documents\dofus emulation\Symbioz\Symbioz\World\Handlers\FightHandler.cs:ligne 25

@@ -41,7 +41,7 @@ namespace Symbioz.Providers.SpellEffectsProvider.Effects
                 }
                 if (loss != 0)
                 {//TODO not dispellable AP Loss
-                    var buff = new APBuff((uint)affected.BuffIdProvider.Pop(), loss, effect.BaseEffect.Duration, fighter.ContextualId, (short)level.SpellId, effect.BaseEffect.EffectType, effect.BaseEffect.Delay);
+                    var buff = new APBuff((uint)affected.BuffIdProvider.Pop(), loss, effect.BaseEffect.Duration, fighter.ContextualId, (short)level.Id, effect.BaseEffect.EffectType, effect.BaseEffect.Delay);
                     affected.AddBuff(buff);
                 }
             }
@@ -51,7 +51,7 @@ namespace Symbioz.Providers.SpellEffectsProvider.Effects
         {
             foreach (var affected in affecteds)
             {
-                var buff = new APBuff((uint)affected.BuffIdProvider.Pop(), effect.BaseEffect.DiceNum, effect.BaseEffect.Duration, fighter.ContextualId, (short)level.SpellId, effect.BaseEffect.EffectType,effect.BaseEffect.Delay);
+                var buff = new APBuff((uint)affected.BuffIdProvider.Pop(), effect.BaseEffect.DiceNum, effect.BaseEffect.Duration, fighter.ContextualId, (short)level.Id, effect.BaseEffect.EffectType,effect.BaseEffect.Delay);
                 affected.AddBuff(buff);
 
             }
@@ -61,7 +61,7 @@ namespace Symbioz.Providers.SpellEffectsProvider.Effects
         {
             foreach (var affected in affecteds)
             {
-                var buff = new APBuff((uint)affected.BuffIdProvider.Pop(), effect.BaseEffect.DiceNum, effect.BaseEffect.Duration, fighter.ContextualId, (short)level.SpellId, effect.BaseEffect.EffectType,effect.BaseEffect.Delay);
+                var buff = new APBuff((uint)affected.BuffIdProvider.Pop(), effect.BaseEffect.DiceNum, effect.BaseEffect.Duration, fighter.ContextualId, (short)level.Id, effect.BaseEffect.EffectType,effect.BaseEffect.Delay);
                 affected.AddBuff(buff);
 
             }
@@ -74,7 +74,7 @@ namespace Symbioz.Providers.SpellEffectsProvider.Effects
         {
             foreach (var target in affecteds)
             {
-                var buff = new MPBuff((uint)target.BuffIdProvider.Pop(), effect.BaseEffect.DiceNum, effect.BaseEffect.Duration, fighter.ContextualId, (short)level.SpellId, effect.BaseEffect.EffectType, effect.BaseEffect.Delay);
+                var buff = new MPBuff((uint)target.BuffIdProvider.Pop(), effect.BaseEffect.DiceNum, effect.BaseEffect.Duration, fighter.ContextualId, (short)level.Id, effect.BaseEffect.EffectType, effect.BaseEffect.Delay);
                 target.AddBuff(buff);
             }
         }
@@ -88,7 +88,7 @@ namespace Symbioz.Providers.SpellEffectsProvider.Effects
         {
             foreach (var target in affecteds)
             {
-                MPBuff buff = new MPBuff((uint)target.BuffIdProvider.Pop(), effect.BaseEffect.DiceNum, effect.BaseEffect.Duration, fighter.ContextualId, (short)level.SpellId, effect.BaseEffect.EffectType, effect.BaseEffect.Delay);
+                MPBuff buff = new MPBuff((uint)target.BuffIdProvider.Pop(), effect.BaseEffect.DiceNum, effect.BaseEffect.Duration, fighter.ContextualId, (short)level.Id, effect.BaseEffect.EffectType, effect.BaseEffect.Delay);
                 target.AddBuff(buff);
             }
         }
@@ -113,7 +113,7 @@ namespace Symbioz.Providers.SpellEffectsProvider.Effects
                 }
                 if (loss != 0)
                 {//TODO not dispellable MP Loss
-                    var buff = new MPBuff((uint)affected.BuffIdProvider.Pop(), loss, effect.BaseEffect.Duration, fighter.ContextualId, (short)level.SpellId, effect.BaseEffect.EffectType, effect.BaseEffect.Delay);
+                    var buff = new MPBuff((uint)affected.BuffIdProvider.Pop(), loss, effect.BaseEffect.Duration, fighter.ContextualId, (short)level.Id, effect.BaseEffect.EffectType, effect.BaseEffect.Delay);
                     affected.AddBuff(buff);
                 }
             }

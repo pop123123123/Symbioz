@@ -1,0 +1,15 @@
+Client: 192.168.0.10:52421
+At: 08/06/2017 21:32:12
+System.ArgumentOutOfRangeException: L'index était hors limites. Il ne doit pas être négatif et doit être inférieur à la taille de la collection.
+Nom du paramètre : index
+   à System.ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument argument, ExceptionResource resource)
+   à System.Collections.Generic.List`1.get_Item(Int32 index)
+   à Symbioz.World.Models.Fights.Fighters.Fighter.AddBuff(Buff buff) dans D:\Documents\dofus emulation\Symbioz\Symbioz\World\Models\Fights\Fighters\Fighter.cs:ligne 641
+   à Symbioz.Providers.SpellEffectsProvider.Effects.ApMpEffects.AddAp(Fighter fighter, SpellLevelRecord level, ExtendedSpellEffect effect, List`1 affecteds, Int16 castcellid) dans D:\Documents\dofus emulation\Symbioz\Symbioz\Providers\SpellEffectsProvider\Effects\ApMpEffects.cs:ligne 65
+   à Symbioz.Providers.SpellEffectsHandler.Handle(Fighter fighter, SpellLevelRecord record, ExtendedSpellEffect effect, List`1 affecteds, Int16 castcellid) dans D:\Documents\dofus emulation\Symbioz\Symbioz\Providers\SpellEffectsProvider\SpellEffectsHandler.cs:ligne 42
+   à Symbioz.World.Models.Fights.Fighters.Fighter.HandleSpellEffects(SpellLevelRecord spell, Int16 cellid, FightSpellCastCriticalEnum critical) dans D:\Documents\dofus emulation\Symbioz\Symbioz\World\Models\Fights\Fighters\Fighter.cs:ligne 334
+   à Symbioz.World.Models.Fights.Fighters.Fighter.CastSpellOnCell(UInt16 spellid, Int16 cellid, Int32 targetId) dans D:\Documents\dofus emulation\Symbioz\Symbioz\World\Models\Fights\Fighters\Fighter.cs:ligne 420
+   à Symbioz.World.Models.Fights.Fighters.CharacterFighter.CastSpellOnCell(UInt16 spellid, Int16 cellid, Int32 targetId) dans D:\Documents\dofus emulation\Symbioz\Symbioz\World\Models\Fights\Fighters\CharacterFighter.cs:ligne 118
+   à Symbioz.World.Models.Fights.Fighters.Fighter.CastSpellOnTarget(UInt16 spellid, Int32 targetid) dans D:\Documents\dofus emulation\Symbioz\Symbioz\World\Models\Fights\Fighters\Fighter.cs:ligne 524
+   à Symbioz.World.Models.Fights.Fighters.CharacterFighter.CastSpellOnTarget(UInt16 spellid, Int32 targetid) dans D:\Documents\dofus emulation\Symbioz\Symbioz\World\Models\Fights\Fighters\CharacterFighter.cs:ligne 106
+   à Symbioz.World.Handlers.FightHandler.HandleSpellCastOnTarget(GameActionFightCastOnTargetRequestMessage message, WorldClient client) dans D:\Documents\dofus emulation\Symbioz\Symbioz\World\Handlers\FightHandler.cs:ligne 45

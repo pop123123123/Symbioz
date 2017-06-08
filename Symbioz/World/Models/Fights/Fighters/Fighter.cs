@@ -155,7 +155,7 @@ namespace Symbioz.World.Models.Fights.Fighters
         }
         public void RemoveState(short stateid, short sourcespellid)
         {
-            Fight.Send(new GameActionFightDispellSpellMessage(951, ContextualId, ContextualId, (ushort)sourcespellid));
+            Fight.Send(new GameActionFightDispellSpellMessage((ushort)ActionsEnum.ACTION_FIGHT_UNSET_STATE, ContextualId, ContextualId, (ushort)sourcespellid));
             m_stateIds.Remove(stateid);
         }
         public bool HaveState(short stateid)
@@ -399,7 +399,7 @@ namespace Symbioz.World.Models.Fights.Fighters
                 return false;
             }
             
-            this.Fight.TryStartSequence(this.ContextualId, 1);
+            this.Fight.TryStartSequence(this.ContextualId, (sbyte)SequenceTypesEnum.SEQUENCE_SPELL);
             FightSpellCastCriticalEnum critical = RollCriticalDice(spellLevl);
 
             short[] portals = new short[0];// WHAT THE FUCK
@@ -627,9 +627,24 @@ namespace Symbioz.World.Models.Fights.Fighters
         }
         public void AddBuff(Buff buff)
         {
+            short maxStack = SpellLevelRecord.GetLevel(buff.SourceSpellLevelId).MaxStack;
+            if (maxStack == 0)
+                maxStack = 1;
             buff.Initialize(this);
             if (buff.Delay == 0)
                 buff.SetBuff();
+            if (maxStack != -1)
+            {
+                var sameBuffs = Buffs.FindAll(x => x.UID == buff.UID);
+                if (sameBuffs.Count != 0)
+                {
+                    for (int i = 0; i <= (sameBuffs.Count - maxStack); i++)
+                    {
+                        sameBuffs[i].RemoveBuff();
+                        Buffs.Remove(sameBuffs[i]);
+                    }
+                }
+            }
             Buffs.Add(buff);
             buff.OnBuffAdded();
         }

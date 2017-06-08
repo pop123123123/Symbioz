@@ -36,7 +36,7 @@ namespace Symbioz.Providers.SpellEffectsProvider.Buffs
         public override void RemoveBuff()
         {
             this.StatDefiniton.AddValue((short)-RealDelta);
-
+            this.Fighter.Fight.Send(new GameActionFightDispellEffectMessage((ushort)DisplayableId, SourceId, Fighter.ContextualId, (int)UID));
         }
 
     }
