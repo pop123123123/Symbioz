@@ -60,7 +60,6 @@ namespace Symbioz.World.PathProvider
             {
                 list.Add((short)(startcell + i));
             }
-            Verifiy(list);
             return list;
         }
         public static List<short> GetLeftCells(short startcell, short movedcellamount)
@@ -70,7 +69,6 @@ namespace Symbioz.World.PathProvider
             {
                 list.Add((short)(startcell - i));
             }
-            Verifiy(list);
             return list;
         }
         public static List<short> GetUpCells(short startcell, short movedcellamount)
@@ -80,7 +78,6 @@ namespace Symbioz.World.PathProvider
             {
                 list.Add((short)(startcell - 28 * i));
             }
-            Verifiy(list);
             return list;
         }
         public static List<short> GetDownCells(short startcell, short movedcellamount)
@@ -90,7 +87,6 @@ namespace Symbioz.World.PathProvider
             {
                 list.Add((short)(startcell + 28 * i));
             }
-            Verifiy(list);
             return list;
         }
         #endregion
@@ -111,62 +107,24 @@ namespace Symbioz.World.PathProvider
                 }
                 list.Add(currentCell);
             }
-            foreach (var cell in list)
-            {
-                Logger.Info(cell);
-            }
-            Verifiy(list);
-            Logger.Info("Verify");
-            foreach (var cell in list)
-            {
-                Logger.Info(cell);
-            }
-            Logger.Info("Ok");
             return list;
         }
         public static List<short> GetFrontDownRightCells(short startcell, short movedcellamout)
         {
             var list = new List<short>();
-            var checker = Math.Truncate((decimal)startcell / 14); // on regarde si la rangée de la cell est paire ou non
-            var iee = Math.IEEERemainder((short)checker, 2); // on regarde si il y a un reste au nombre
-            if (iee == 0) // si le nombre est pair , alors
+            short currentCell = startcell;
+            for (int i = 0; i < movedcellamout; i++)
             {
-                list.Add((short)(startcell + 14));
-                bool check = true;
-                for (int i = 0; i < movedcellamout; i++)
+                if ((currentCell / 14) % 2 == 0)//Si rangée paire, 14, sinon 15
                 {
-                    if (check == true)
-                    {
-                        list.Add((short)(list[i] + 15));
-                        check = false;
-                    }
-                    else
-                    {
-                        list.Add((short)(list[i] + 14));
-                        check = true;
-                    }
+                    currentCell += 14;
                 }
-            }
-            else // si il est impaire ,alors
-            {
-                list.Add((short)(startcell + 15 * 1));
-                bool check = true;
-                for (int i = 0; i < movedcellamout; i++)
+                else
                 {
-                    if (check == true)
-                    {
-                        list.Add((short)(list[i] + 14));
-                        check = false;
-                    }
-                    else
-                    {
-                        list.Add((short)(list[i] + 15));
-                        check = true;
-                    }
+                    currentCell += 15;
                 }
+                list.Add(currentCell);
             }
-
-            list.Remove(list.Last());
             return list;
         }
         #endregion
@@ -174,94 +132,37 @@ namespace Symbioz.World.PathProvider
         public static List<short> GetFrontUpLeftCells(short startcell, short movedcellamout)
         {
             var list = new List<short>();
-            var checker = Math.Truncate((decimal)startcell / 14); // on regarde si la rangée de la cell est paire ou non
-            var iee = Math.IEEERemainder((short)checker, 2); // on regarde si il y a un reste au nombre
-            if (iee == 0) // si le nombre est pair , alors
+            short currentCell = startcell;
+            for (int i = 0; i < movedcellamout; i++)
             {
-                list.Add((short)(startcell - 15));
-                bool check = true;
-                for (int i = 0; i < movedcellamout; i++)
+                if ((currentCell / 14) % 2 == 0)//Si rangée paire, -15, sinon -14
                 {
-                    if (check == true)
-                    {
-                        list.Add((short)(list[i] - 14));
-                        check = false;
-                    }
-                    else
-                    {
-                        list.Add((short)(list[i] - 15));
-                        check = true;
-                    }
+                    currentCell -= 15;
                 }
-            }
-            else // si il est impaire ,alors
-            {
-                list.Add((short)(startcell - 14 * 1));
-                bool check = true;
-                for (int i = 0; i < movedcellamout; i++)
+                else
                 {
-                    if (check == true)
-                    {
-                        list.Add((short)(list[i] - 15));
-                        check = false;
-                    }
-                    else
-                    {
-                        list.Add((short)(list[i] - 14));
-                        check = true;
-                    }
+                    currentCell -= 14;
                 }
+                list.Add(currentCell);
             }
-
-            list.Remove(list.Last());
-            Verifiy(list);
             return list;
         }
         public static List<short> GetFrontUpRightCells(short startcell, short movedcellamout) // youston on a probleme cell 500
         {
             var list = new List<short>();
-            var checker = Math.Truncate((decimal)startcell / 14);
-            var iee = Math.IEEERemainder((short)checker, 2);
-            if (iee == 0)
+            short currentCell = startcell;
+            for (int i = 0; i < movedcellamout; i++)
             {
-
-                list.Add((short)(startcell - 14));
-                bool check = true;
-                for (int i = 0; i < movedcellamout; i++)
+                if ((currentCell / 14) % 2 == 0)//Si rangée paire, -14, sinon -13
                 {
-                    if (check == true)
-                    {
-                        list.Add((short)(list[i] - 13));
-                        check = false;
-                    }
-                    else
-                    {
-                        list.Add((short)(list[i] - 14));
-                        check = true;
-                    }
+                    currentCell -= 14;
                 }
-            }
-            else // si il est impaire ,alors
-            {
-                list.Add((short)(startcell - 13));
-                bool check = true;
-                for (int i = 0; i < movedcellamout; i++)
+                else
                 {
-                    if (check == true)
-                    {
-                        list.Add((short)(list[i] - 14));
-                        check = false;
-                    }
-                    else
-                    {
-                        list.Add((short)(list[i] - 13));
-                        check = true;
-                    }
+                    currentCell -= 13;
                 }
+                list.Add(currentCell);
             }
-
-            list.Remove(list.Last());
-            Verifiy(list);
             return list;
         }
         #endregion
@@ -269,45 +170,46 @@ namespace Symbioz.World.PathProvider
         public static List<short> GetThe4thsDiagonal(short startcell, short movedcellamount)
         {
             var list = new List<short>();
-            list.AddRange(GetDownCells(startcell, movedcellamount));
-            list.AddRange(GetUpCells(startcell, movedcellamount));
-            list.AddRange(GetRightCells(startcell, movedcellamount));
-            list.AddRange(GetLeftCells(startcell, movedcellamount));
+            list.AddRange(Verify(GetDownCells(startcell, movedcellamount)));
+            list.AddRange(Verify(GetUpCells(startcell, movedcellamount)));
+            list.AddRange(Verify(GetRightCells(startcell, movedcellamount)));
+            list.AddRange(Verify(GetLeftCells(startcell, movedcellamount)));
             return list;
         }
         public static List<short> GetSquare(short startcell, bool containstartcell)
         {
             var list = new List<short>();
-            list.AddRange(GetFrontDownLeftCells(startcell, 1));
-            list.AddRange(GetFrontDownRightCells(startcell, 1));
-            list.AddRange(GetFrontUpLeftCells(startcell, 1));
-            list.AddRange(GetFrontUpRightCells(startcell, 1));
-            list.AddRange(GetDownCells(startcell, 1));
-            list.AddRange(GetUpCells(startcell, 1));
-            list.AddRange(GetRightCells(startcell, 1));
-            list.AddRange(GetLeftCells(startcell, 1));
+            list.AddRange(Verify(GetFrontDownLeftCells(startcell, 1)));
+            list.AddRange(Verify(GetFrontDownRightCells(startcell, 1)));
+            list.AddRange(Verify(GetFrontUpLeftCells(startcell, 1)));
+            list.AddRange(Verify(GetFrontUpRightCells(startcell, 1)));
+            list.AddRange(Verify(GetDownCells(startcell, 1)));
+            list.AddRange(Verify(GetUpCells(startcell, 1)));
+            list.AddRange(Verify(GetRightCells(startcell, 1)));
+            list.AddRange(Verify(GetLeftCells(startcell, 1)));
             if (containstartcell)
                 list.Add(startcell);
             return list;
         }
         #endregion
         #region Utils
-        public static void Verifiy(List<short> cells)
+        public static List<short> Verify(List<short> cells)
         {
             cells.RemoveAll(x => x < 0 || x > 560);
+            return cells;
         }
         public static List<short> GetLineFromOposedDirection(short startcell, short movecellamount, DirectionsEnum direction)
         {
             switch (direction) // all good, directionfinderrework
             {
                 case DirectionsEnum.DIRECTION_SOUTH_EAST:
-                    return GetFrontUpLeftCells(startcell, movecellamount);
+                    return Verify(GetFrontUpLeftCells(startcell, movecellamount));
                 case DirectionsEnum.DIRECTION_SOUTH_WEST: // good
-                    return GetFrontUpRightCells(startcell, movecellamount);
+                    return Verify(GetFrontUpRightCells(startcell, movecellamount));
                 case DirectionsEnum.DIRECTION_NORTH_WEST:
-                    return GetFrontDownRightCells(startcell, movecellamount);
+                    return Verify(GetFrontDownRightCells(startcell, movecellamount));
                 case DirectionsEnum.DIRECTION_NORTH_EAST: // good
-                    return GetFrontDownLeftCells(startcell, movecellamount);
+                    return Verify(GetFrontDownLeftCells(startcell, movecellamount));
                 default:
                     return null;
             }
@@ -321,6 +223,30 @@ namespace Symbioz.World.PathProvider
                 return false;
         }
         public static List<short> GetLineFromDirection(short startcell, short movecellamount, DirectionsEnum direction)
+        {
+            switch (direction)
+            {
+                case DirectionsEnum.DIRECTION_EAST:
+                    return Verify(GetRightCells(startcell, movecellamount));
+                case DirectionsEnum.DIRECTION_SOUTH_EAST:
+                    return Verify(GetFrontDownRightCells(startcell, movecellamount));
+                case DirectionsEnum.DIRECTION_SOUTH:
+                    return Verify(GetDownCells(startcell, movecellamount));
+                case DirectionsEnum.DIRECTION_SOUTH_WEST:
+                    return Verify(GetFrontDownLeftCells(startcell, movecellamount));
+                case DirectionsEnum.DIRECTION_WEST:
+                    return Verify(GetLeftCells(startcell, movecellamount));
+                case DirectionsEnum.DIRECTION_NORTH_WEST:
+                    return Verify(GetFrontUpLeftCells(startcell, movecellamount));
+                case DirectionsEnum.DIRECTION_NORTH:
+                    return Verify(GetUpCells(startcell, movecellamount));
+                case DirectionsEnum.DIRECTION_NORTH_EAST:
+                    return Verify(GetFrontUpRightCells(startcell, movecellamount));
+                default:
+                    return null;
+            }
+        }
+        public static List<short> GetLineFromDirectionWithoutBounds(short startcell, short movecellamount, DirectionsEnum direction)
         {
             switch (direction)
             {
@@ -372,22 +298,22 @@ namespace Symbioz.World.PathProvider
         }
         public static DirectionsEnum GetDirectionFromTwoCells(short firstcellid, short secondccellid) // first = caster
         {
-            if (GetFrontDownLeftCells(firstcellid, 10).Contains(secondccellid))
+            if (Verify(GetFrontDownLeftCells(firstcellid, 10)).Contains(secondccellid))
                 return DirectionsEnum.DIRECTION_SOUTH_WEST;
-            if (GetFrontDownRightCells(firstcellid, 10).Contains(secondccellid))
+            if (Verify(GetFrontDownRightCells(firstcellid, 10)).Contains(secondccellid))
                 return DirectionsEnum.DIRECTION_SOUTH_EAST;
-            if (GetFrontUpLeftCells(firstcellid, 10).Contains(secondccellid))
+            if (Verify(GetFrontUpLeftCells(firstcellid, 10)).Contains(secondccellid))
                 return DirectionsEnum.DIRECTION_NORTH_WEST;
-            if (GetFrontUpRightCells(firstcellid, 10).Contains(secondccellid))
+            if (Verify(GetFrontUpRightCells(firstcellid, 10)).Contains(secondccellid))
                 return DirectionsEnum.DIRECTION_NORTH_EAST;
 
-            if (GetRightCells(firstcellid, 10).Contains(secondccellid))
+            if (Verify(GetRightCells(firstcellid, 10)).Contains(secondccellid))
                 return DirectionsEnum.DIRECTION_EAST;
-            if (GetLeftCells(firstcellid, 10).Contains(secondccellid))
+            if (Verify(GetLeftCells(firstcellid, 10)).Contains(secondccellid))
                 return DirectionsEnum.DIRECTION_WEST;
-            if (GetUpCells(firstcellid, 10).Contains(secondccellid))
+            if (Verify(GetUpCells(firstcellid, 10)).Contains(secondccellid))
                 return DirectionsEnum.DIRECTION_NORTH;
-            if (GetDownCells(firstcellid, 10).Contains(secondccellid))
+            if (Verify(GetDownCells(firstcellid, 10)).Contains(secondccellid))
                 return DirectionsEnum.DIRECTION_SOUTH;
 
             return 0;
@@ -414,7 +340,7 @@ namespace Symbioz.World.PathProvider
                 results.Add(line[0]);
                 results.Add(line[3]);
             }
-            Verifiy(results);
+            Verify(results);
             return results;
         }
         /// <summary>
@@ -444,11 +370,11 @@ namespace Symbioz.World.PathProvider
         {
             List<short> results = new List<short>();
             results.Add(startcell);
-            results.Add(GetLeftCells(startcell, 1)[0]);
-            results.Add(GetRightCells(startcell, 1)[0]);
-            results.Add(GetUpCells(startcell, 1)[0]);
-            results.Add(GetDownCells(startcell, 1)[0]);
-            Verifiy(results);
+            results.Add(Verify(GetLeftCells(startcell, 1))[0]);
+            results.Add(Verify(GetRightCells(startcell, 1))[0]);
+            results.Add(Verify(GetUpCells(startcell, 1))[0]);
+            results.Add(Verify(GetDownCells(startcell, 1))[0]);
+            Verify(results);
             return results;
         }
         [Shape('V')]
@@ -479,18 +405,18 @@ namespace Symbioz.World.PathProvider
                     break;
             }
 
-            Verifiy(results);
+            Verify(results);
             return results;
         }
         [Shape('*')]
         public static List<short> GetStarShape(short startcell, short entitycell, short radius)
         {
             var cells = GetCShape(startcell, entitycell, radius);
-            cells.AddRange(GetUpCells(startcell, radius));
-            cells.AddRange(GetDownCells(startcell, radius));
-            cells.AddRange(GetRightCells(startcell, radius));
-            cells.AddRange(GetLeftCells(startcell, radius));
-            Verifiy(cells);
+            cells.AddRange(Verify(GetUpCells(startcell, radius)));
+            cells.AddRange(Verify(GetDownCells(startcell, radius)));
+            cells.AddRange(Verify(GetRightCells(startcell, radius)));
+            cells.AddRange(Verify(GetLeftCells(startcell, radius)));
+            Verify(cells);
             return cells.Distinct().ToList();
         }
         [Shape('G')]
@@ -509,26 +435,26 @@ namespace Symbioz.World.PathProvider
             {
                 results.Add(startcell);
                 results.Add((short)(startcell + i));
-                results.AddRange(GetFrontDownLeftCells((short)(startcell + i), (short)(shift + i)));
-                results.AddRange(GetFrontUpLeftCells((short)(startcell + i), (short)(shift + i)));
-                results.AddRange(GetFrontDownRightCells((short)(startcell - i), (short)(shift + i)));
-                results.AddRange(GetFrontUpRightCells((short)(startcell - i), (short)(shift + i)));
-                results.AddRange(GetLeftCells((short)(startcell), (short)(i)));
-                results.AddRange(GetDownCells((short)(startcell), (short)(i)));
-                results.AddRange(GetUpCells((short)(startcell), (short)(i)));
+                results.AddRange(Verify(GetFrontDownLeftCells((short)(startcell + i), (short)(shift + i))));
+                results.AddRange(Verify(GetFrontUpLeftCells((short)(startcell + i), (short)(shift + i))));
+                results.AddRange(Verify(GetFrontDownRightCells((short)(startcell - i), (short)(shift + i))));
+                results.AddRange(Verify(GetFrontUpRightCells((short)(startcell - i), (short)(shift + i))));
+                results.AddRange(Verify(GetLeftCells((short)(startcell), (short)(i))));
+                results.AddRange(Verify(GetDownCells((short)(startcell), (short)(i))));
+                results.AddRange(Verify(GetUpCells((short)(startcell), (short)(i))));
             }
-            Verifiy(results);
+            Verify(results);
             return results.Distinct().ToList();
         }
         [Shape('Q')]
         public static List<short> GetQShape(short startcell, short entitycell, short radius)
         {
             List<short> results = new List<short>();
-            results.AddRange(GetFrontDownLeftCells(startcell, radius));
-            results.AddRange(GetFrontDownRightCells(startcell, radius));
-            results.AddRange(GetFrontUpLeftCells(startcell, radius));
-            results.AddRange(GetFrontUpRightCells(startcell, radius));
-            Verifiy(results);
+            results.AddRange(Verify(GetFrontDownLeftCells(startcell, radius)));
+            results.AddRange(Verify(GetFrontDownRightCells(startcell, radius)));
+            results.AddRange(Verify(GetFrontUpLeftCells(startcell, radius)));
+            results.AddRange(Verify(GetFrontUpRightCells(startcell, radius)));
+            Verify(results);
             return results;
         }
         [Shape('X')]
@@ -536,11 +462,11 @@ namespace Symbioz.World.PathProvider
         {
             List<short> results = new List<short>();
             results.Add(startcell);
-            results.AddRange(GetFrontDownLeftCells(startcell, radius));
-            results.AddRange(GetFrontDownRightCells(startcell, radius));
-            results.AddRange(GetFrontUpLeftCells(startcell, radius));
-            results.AddRange(GetFrontUpRightCells(startcell, radius));
-            Verifiy(results);
+            results.AddRange(Verify(GetFrontDownLeftCells(startcell, radius)));
+            results.AddRange(Verify(GetFrontDownRightCells(startcell, radius)));
+            results.AddRange(Verify(GetFrontUpLeftCells(startcell, radius)));
+            results.AddRange(Verify(GetFrontUpRightCells(startcell, radius)));
+            Verify(results);
             return results;
         }
         [Shape('L')]
@@ -548,7 +474,7 @@ namespace Symbioz.World.PathProvider
         {
             var line = GetLineFromDirection(startcell, radius, GetDirectionFromTwoCells(entitycell, startcell));
             line.Add(startcell);
-            Verifiy(line);
+            Verify(line);
             return line;
         }
         [Shape('B')]
@@ -556,7 +482,7 @@ namespace Symbioz.World.PathProvider
         {
             var line = GetLineFromDirection(startcell, radius, GetDirectionFromTwoCells(startcell, entitycell));
             line.Remove(line.Last());
-            Verifiy(line);
+            Verify(line);
             return line;
         }
         [Shape('C')]
@@ -575,39 +501,39 @@ namespace Symbioz.World.PathProvider
                 case DirectionsEnum.DIRECTION_EAST:
                     return cells;
                 case DirectionsEnum.DIRECTION_SOUTH_EAST:
-                    cells.AddRange(GetFrontDownLeftCells(startcell, radius));
-                    cells.AddRange(GetFrontUpRightCells(startcell, radius));
+                    cells.AddRange(Verify(GetFrontDownLeftCells(startcell, radius)));
+                    cells.AddRange(Verify(GetFrontUpRightCells(startcell, radius)));
                     break;
                 case DirectionsEnum.DIRECTION_SOUTH:
                     return cells;
                 case DirectionsEnum.DIRECTION_SOUTH_WEST:
-                    cells.AddRange(GetFrontUpLeftCells(startcell, radius));
-                    cells.AddRange(GetFrontDownRightCells(startcell, radius));
+                    cells.AddRange(Verify(GetFrontUpLeftCells(startcell, radius)));
+                    cells.AddRange(Verify(GetFrontDownRightCells(startcell, radius)));
                     break;
                 case DirectionsEnum.DIRECTION_WEST:
                     break;
                 case DirectionsEnum.DIRECTION_NORTH_WEST:
-                    cells.AddRange(GetFrontUpRightCells(startcell, radius));
-                    cells.AddRange(GetFrontDownLeftCells(startcell, radius));
+                    cells.AddRange(Verify(GetFrontUpRightCells(startcell, radius)));
+                    cells.AddRange(Verify(GetFrontDownLeftCells(startcell, radius)));
                     break;
                 case DirectionsEnum.DIRECTION_NORTH:
                     break;
                 case DirectionsEnum.DIRECTION_NORTH_EAST:
-                    cells.AddRange(GetFrontUpLeftCells(startcell, radius));
-                    cells.AddRange(GetFrontDownRightCells(startcell, radius));
+                    cells.AddRange(Verify(GetFrontUpLeftCells(startcell, radius)));
+                    cells.AddRange(Verify(GetFrontDownRightCells(startcell, radius)));
                     break;
             }
-            Verifiy(cells);
+            Verify(cells);
             return cells;
         }
         public static List<short> GetCross1RadiusCells(short baseposition)
         {
             List<short> results = new List<short>();
-            results.Add(GetFrontDownLeftCells(baseposition, 1)[0]);
-            results.Add(GetFrontDownRightCells(baseposition, 1)[0]);
-            results.Add(GetFrontUpLeftCells(baseposition, 1)[0]);
-            results.Add(GetFrontUpRightCells(baseposition, 1)[0]);
-            Verifiy(results);
+            results.Add(Verify(GetFrontDownLeftCells(baseposition, 1))[0]);
+            results.Add(Verify(GetFrontDownRightCells(baseposition, 1))[0]);
+            results.Add(Verify(GetFrontUpLeftCells(baseposition, 1))[0]);
+            results.Add(Verify(GetFrontUpRightCells(baseposition, 1))[0]);
+            Verify(results);
             return results;
         }
         [Shape('P')]
@@ -619,12 +545,12 @@ namespace Symbioz.World.PathProvider
         public static List<short> GetOShape(short startcell, short basecell, short radius)
         {
             List<short> results = new List<short>();
-            /*System.Console.WriteLine(GetFrontDownLeftCells(startcell, 25)[5]);
-            results.Add(GetFrontDownLeftCells(startcell, 5)[0]);
+            /*System.Console.WriteLine(Verify(GetFrontDownLeftCells(startcell, 25))[5]);
+            results.Add(Verify(GetFrontDownLeftCells(startcell, 5))[0]);
             System.Console.WriteLine(results[0]);
-            //results.Add(GetFrontDownRightCells(startcell, 1)[radius]);
-            //results.Add(GetFrontUpLeftCells(startcell, 1)[radius]);
-            //results.Add(GetFrontUpRightCells(startcell, 1)[radius]);*/
+            //results.Add(Verify(GetFrontDownRightCells(startcell, 1))[radius]);
+            //results.Add(Verify(GetFrontUpLeftCells(startcell, 1))[radius]);
+            //results.Add(Verify(GetFrontUpRightCells(startcell, 1))[radius]);*/
             results.Add(startcell);
             return results;
         }

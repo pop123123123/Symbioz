@@ -253,11 +253,14 @@ namespace Symbioz.World.Models.Fights
             List<short> results = new List<short>();
             if (cells == null)
                 return results;
+            short previousCell = -1;
             foreach (var cell in cells)
             {
-                if (!IsObstacle(cell))
+                if (!IsObstacle(cell) && (previousCell == -1 || cell / 14 != previousCell / 14 ) && cell >= 0 && cell <= 560)
+                    //Evite la tp d'un bord de la map à l'autre, problème si portail ou push en east/west
                 {
                     results.Add(cell);
+                    previousCell = cell;
                 }
                 else
                 {

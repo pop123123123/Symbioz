@@ -262,7 +262,7 @@ namespace Symbioz.Providers.SpellEffectsProvider.Effects
                 {
                     direction = ShapesProvider.GetDirectionFromTwoCells(castcellid, target.CellId);
                 }
-                List<short> line = ShapesProvider.GetLineFromDirection(target.CellId, (byte)effect.BaseEffect.DiceNum, direction);
+                List<short> line = ShapesProvider.GetLineFromDirectionWithoutBounds(target.CellId, (byte)effect.BaseEffect.DiceNum, direction);
                 List<short> cells = fighter.Fight.BreakAtFirstObstacles(line);
                 if (cells.Count > 0)
                 {
